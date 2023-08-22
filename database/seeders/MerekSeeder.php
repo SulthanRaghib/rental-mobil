@@ -13,25 +13,25 @@ class MerekSeeder extends Seeder
     public function run(): void
     {
         \App\Models\Merek::factory()->create([
-            'nama' => 'Toyota',
+            'nama_merek' => 'Toyota',
         ]);
         \App\Models\Merek::factory()->create([
-            'nama' => 'Honda',
+            'nama_merek' => 'Honda',
         ]);
         \App\Models\Merek::factory()->create([
-            'nama' => 'Suzuki',
+            'nama_merek' => 'Suzuki',
         ]);
         \App\Models\Merek::factory()->create([
-            'nama' => 'Daihatsu',
+            'nama_merek' => 'Daihatsu',
         ]);
         \App\Models\Merek::factory()->create([
-            'nama' => 'Mitsubishi',
+            'nama_merek' => 'Mitsubishi',
         ]);
         \App\Models\Merek::factory()->create([
-            'nama' => 'Nissan',
+            'nama_merek' => 'Nissan',
         ]);
         \App\Models\Merek::factory()->create([
-            'nama' => 'Hyundai',
+            'nama_merek' => 'Hyundai',
         ]);
     }
 }

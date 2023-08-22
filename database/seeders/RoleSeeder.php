@@ -13,10 +13,10 @@ class RoleSeeder extends Seeder
     public function run(): void
     {
         \App\Models\Role::factory()->create([
-            'nama' => 'admin',
+            'nama_role' => 'admin',
         ]);
         \App\Models\Role::factory()->create([
-            'nama' => 'user',
+            'nama_role' => 'user',
         ]);
     }
 }

@@ -13,10 +13,10 @@ class TypeMobilSeeder extends Seeder
     public function run(): void
     {
         \App\Models\TypeMobil::factory()->create([
-            'nama' => 'automatic',
+            'nama_type_mobil' => 'automatic',
         ]);
         \App\Models\TypeMobil::factory()->create([
-            'nama' => 'manual',
+            'nama_type_mobil' => 'manual',
         ]);
     }
 }

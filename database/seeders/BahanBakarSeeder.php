@@ -13,25 +13,25 @@ class BahanBakarSeeder extends Seeder
     public function run(): void
     {
         \App\Models\BahanBakar::factory()->create([
-            'nama' => 'Pertalite',
+            'nama_bahan_bakar' => 'Pertalite',
         ]);
         \App\Models\BahanBakar::factory()->create([
-            'nama' => 'Pertamax',
+            'nama_bahan_bakar' => 'Pertamax',
         ]);
         \App\Models\BahanBakar::factory()->create([
-            'nama' => 'Pertamax Turbo',
+            'nama_bahan_bakar' => 'Pertamax Turbo',
         ]);
         \App\Models\BahanBakar::factory()->create([
-            'nama' => 'Pertamax Racing',
+            'nama_bahan_bakar' => 'Pertamax Racing',
         ]);
         \App\Models\BahanBakar::factory()->create([
-            'nama' => 'Pertamina Dex',
+            'nama_bahan_bakar' => 'Pertamina Dex',
         ]);
         \App\Models\BahanBakar::factory()->create([
-            'nama' => 'Dexlite',
+            'nama_bahan_bakar' => 'Dexlite',
         ]);
         \App\Models\BahanBakar::factory()->create([
-            'nama' => 'Solar',
+            'nama_bahan_bakar' => 'Solar',
         ]);
     }
 }
