@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('type_mobils', function (Blueprint $table) {
             $table->id();
-            $table->enum('nama', ['automatic', 'manual']);
+            $table->enum('nama_type_mobil', ['automatic', 'manual']);
             $table->timestamps();
         });
     }

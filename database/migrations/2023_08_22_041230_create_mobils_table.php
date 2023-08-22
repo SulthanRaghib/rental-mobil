@@ -14,12 +14,12 @@ return new class extends Migration
         Schema::create('mobils', function (Blueprint $table) {
             $table->id();
             $table->string('kode_mobil', 10)->unique();
-            $table->string('merk');
             $table->string('no_polisi', 10)->unique();
             $table->string('harga_sewa');
             $table->string('kapasitas');
             $table->string('gambar_mobil');
             $table->string('status');
+            $table->foreignId('merek_mobil_id');
             $table->foreignId('bahan_bakar_id');
             $table->foreignId('tipe_mobil_id');
             $table->timestamps();

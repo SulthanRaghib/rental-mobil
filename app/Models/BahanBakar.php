@@ -12,6 +12,6 @@ class BahanBakar extends Model
     protected $table = 'bahan_bakars';
     protected $primaryKey = 'id';
     protected $fillable = [
-        'nama',
+        'nama_bahan_bakar',
     ];
 }

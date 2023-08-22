@@ -26,6 +26,7 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,
             SewaSeeder::class,
             BahanBakarSeeder::class,
+            MerekSeeder::class,
         ]);
     }
 }

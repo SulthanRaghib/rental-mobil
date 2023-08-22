@@ -13,12 +13,12 @@ class Mobil extends Model
     protected $primaryKey = 'id';
     protected $fillable = [
         'kode_mobil',
-        'merk',
         'no_polisi',
         'harga_sewa',
         'kapasitas',
         'gambar_mobil',
         'status',
+        'merek_id',
         'bahan_bakar_id',
         'tipe_mobil_id',
     ];
