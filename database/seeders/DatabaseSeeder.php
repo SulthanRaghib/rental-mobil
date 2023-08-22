@@ -22,6 +22,8 @@ class DatabaseSeeder extends Seeder
         $this->call([
             TypeMobilSeeder::class,
             MobilSeeder::class,
+            RoleSeeder::class,
+            UserSeeder::class,
         ]);
     }
 }
