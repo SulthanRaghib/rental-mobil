@@ -7,59 +7,73 @@ use Illuminate\Http\Request;
 
 class RoleController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        //
+        return view('contents.pages.role.index', [
+            'title' => 'Role',
+            'role' => Role::all(),
+        ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
-        //
+        return view('contents.pages.role.create', [
+            'title' => 'Role',
+        ]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
+        $rules = [
+            'nama_role' => 'required|unique:roles',
+        ];
+
+        $messages = [
+            'nama_role.required' => 'Nama role harus diisi.',
+            'nama_role.unique' => 'Nama role sudah ada.',
+        ];
+
+        $this->validate($request, $rules, $messages);
+
+        Role::create([
+            'nama_role' => $request->nama_role,
+        ]);
+
+        return redirect()->route('role.index')->with('success', 'Data role berhasil ditambahkan.');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Role $role)
+    public function edit($id)
     {
-        //
+        return view('contents.pages.role.edit', [
+            'title' => 'Role',
+            'role' => Role::find($id),
+        ]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Role $role)
+    public function update(Request $request, $id)
     {
-        //
+        $rules = [
+            'nama_role' => 'required|unique:roles,nama_role,' . $id,
+        ];
+
+        $messages = [
+            'nama_role.required' => 'Nama role harus diisi.',
+            'nama_role.unique' => 'Nama role sudah ada.',
+        ];
+
+        $this->validate($request, $rules, $messages);
+
+        Role::find($id)->update([
+            'nama_role' => $request->nama_role,
+        ]);
+
+        return redirect()->route('role.index')->with('success', 'Data role berhasil diubah.');
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Role $role)
+    public function destroy($id)
     {
-        //
-    }
+        Role::find($id)->delete();
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Role $role)
-    {
-        //
+        return redirect()->route('role.index')->with('success', 'Data role berhasil dihapus.');
     }
 }

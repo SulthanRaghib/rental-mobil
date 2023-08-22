@@ -31,6 +31,9 @@
     <!-- Template Main CSS File -->
     <link href={{ url('assets/css/style.css') }} rel="stylesheet">
 
+    {{-- sweetalert2 --}}
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
     <!-- =======================================================
   * Template Name: NiceAdmin
   * Updated: Jul 27 2023 with Bootstrap v5.3.1

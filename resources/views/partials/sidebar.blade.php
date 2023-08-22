@@ -13,6 +13,14 @@
         </li><!-- End Dashboard Nav -->
 
         <li class="nav-item">
+            <a class="nav-link collapsed" style="{{ Route::is('role') ? 'background: #f6f9ff; color: #4154f1' : '' }}"
+                href={{ route('role.index') }}>
+                <i class="bi bi-person-rolodex"></i>
+                <span>Role</span>
+            </a>
+        </li><!-- End Blank Page Nav -->
+
+        <li class="nav-item">
             <a class="nav-link collapsed"
                 style="{{ Route::is('pages-blank') ? 'background: #f6f9ff; color: #4154f1' : '' }}"
                 href={{ route('pages-blank') }}>
