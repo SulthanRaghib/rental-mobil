@@ -24,6 +24,7 @@ class DatabaseSeeder extends Seeder
             MobilSeeder::class,
             RoleSeeder::class,
             UserSeeder::class,
+            SewaSeeder::class,
         ]);
     }
 }
