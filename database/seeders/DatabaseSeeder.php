@@ -25,6 +25,7 @@ class DatabaseSeeder extends Seeder
             RoleSeeder::class,
             UserSeeder::class,
             SewaSeeder::class,
+            BahanBakarSeeder::class,
         ]);
     }
 }

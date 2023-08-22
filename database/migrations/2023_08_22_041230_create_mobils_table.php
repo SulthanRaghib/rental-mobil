@@ -16,11 +16,11 @@ return new class extends Migration
             $table->string('kode_mobil', 10)->unique();
             $table->string('merk');
             $table->string('no_polisi', 10)->unique();
-            $table->string('bahan_bakar');
             $table->string('harga_sewa');
             $table->string('kapasitas');
             $table->string('gambar_mobil');
             $table->string('status');
+            $table->foreignId('bahan_bakar_id');
             $table->foreignId('tipe_mobil_id');
             $table->timestamps();
         });

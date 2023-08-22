@@ -16,11 +16,11 @@ class MobilSeeder extends Seeder
             'kode_mobil' => 'MBL-001',
             'merk' => 'Toyota',
             'no_polisi' => 'B 1234 ABC',
-            'bahan_bakar' => 'Pertamax',
             'harga_sewa' => '100000',
             'kapasitas' => '4',
             'gambar_mobil' => 'mobil1.jpg',
             'status' => 'Tersedia',
+            'bahan_bakar_id' => '1',
             'tipe_mobil_id' => '1',
         ]);
     }

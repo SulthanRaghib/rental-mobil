@@ -15,11 +15,11 @@ class Mobil extends Model
         'kode_mobil',
         'merk',
         'no_polisi',
-        'bahan_bakar',
         'harga_sewa',
         'kapasitas',
         'gambar_mobil',
         'status',
+        'bahan_bakar_id',
         'tipe_mobil_id',
     ];
 }
