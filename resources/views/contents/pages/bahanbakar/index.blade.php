@@ -24,22 +24,22 @@
                             @foreach ($bahan_bakar as $bb)
                                 <tr>
                                     <td>{{ $bb->nama_bahan_bakar }}</td>
-                                    
-                                        <td>
-                                            <a href="{{ route('bahanbakar.edit', $bb->id) }}" class="btn btn-sm btn-warning">
-                                                Edit <i class="bi bi-pencil-square"></i>
-                                            </a>
-                                            <form action="{{ route('role.destroy', $bb->id) }}" method="POST"
-                                                class="d-inline">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" class="btn btn-sm btn-danger"
-                                                    onclick="return confirm('Apakah anda yakin ingin menghapus data ID={{ $bb->id }} ini?')">
-                                                    Hapus <i class="bi bi-trash"></i>
-                                                </button>
-                                            </form>
-                                        </td>
-                                    
+
+                                    <td>
+                                        <a href="{{ route('bahanbakar.edit', $bb->id) }}" class="btn btn-sm btn-warning">
+                                            Edit <i class="bi bi-pencil-square"></i>
+                                        </a>
+                                        <form action="{{ route('bahanbakar.destroy', $bb->id) }}" method="POST"
+                                            class="d-inline">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-sm btn-danger"
+                                                onclick="return confirm('Apakah anda yakin ingin menghapus data ID={{ $bb->id }} ini?')">
+                                                Hapus <i class="bi bi-trash"></i>
+                                            </button>
+                                        </form>
+                                    </td>
+
                                 </tr>
                             @endforeach
                         </tbody>

@@ -25,7 +25,7 @@ class BahanBakarController extends Controller
     public function store(Request $request)
     {
         $rules = [
-            'nama_bahan_bakar' => 'required|unique:bahan_bakar',
+            'nama_bahan_bakar' => 'required|unique:bahan_bakars',
         ];
 
         $messages = [
@@ -53,7 +53,7 @@ class BahanBakarController extends Controller
     public function update(Request $request, $id)
     {
         $rules = [
-            'nama_bahan_bakar' => 'required|unique:bahan_bakar,nama_bahan_bakar,' . $id,
+            'nama_bahan_bakar' => 'required|unique:bahan_bakars,nama_bahan_bakar,' . $id,
         ];
 
         $messages = [
