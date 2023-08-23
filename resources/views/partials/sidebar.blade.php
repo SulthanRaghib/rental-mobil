@@ -21,6 +21,14 @@
         </li><!-- End Blank Page Nav -->
 
         <li class="nav-item">
+            <a class="nav-link collapsed" style="{{ Route::is('bahanbakar') ? 'background: #f6f9ff; color: #4154f1' : '' }}"
+                href={{ route('bahanbakar.index') }}>
+                <i class="bi bi-person-rolodex"></i>
+                <span>Bahan Bakar</span>
+            </a>
+        </li><!-- End Bahan Bakar Nav -->
+
+        <li class="nav-item">
             <a class="nav-link collapsed"
                 style="{{ Route::is('pages-blank') ? 'background: #f6f9ff; color: #4154f1' : '' }}"
                 href={{ route('pages-blank') }}>
