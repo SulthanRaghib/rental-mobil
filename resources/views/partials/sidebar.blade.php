@@ -29,6 +29,14 @@
         </li><!-- End Bahan Bakar Nav -->
 
         <li class="nav-item">
+            <a class="nav-link collapsed" style="{{ Route::is('merek') ? 'background: #f6f9ff; color: #4154f1' : '' }}"
+                href={{ route('merek.index') }}>
+                <i class="bi bi-person-rolodex"></i>
+                <span>Merek</span>
+            </a>
+        </li><!-- End Merek Nav -->
+
+        <li class="nav-item">
             <a class="nav-link collapsed"
                 style="{{ Route::is('pages-blank') ? 'background: #f6f9ff; color: #4154f1' : '' }}"
                 href={{ route('pages-blank') }}>
