@@ -3,9 +3,8 @@
 use App\Http\Controllers\BahanBakarController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\MerekController;
+use App\Http\Controllers\MobilController;
 use App\Http\Controllers\RoleController;
-use App\Models\BahanBakar;
-use App\Models\Merek;
 use Illuminate\Support\Facades\Route;
 
 
@@ -29,6 +28,14 @@ Route::post('/role', [RoleController::class, 'store'])->name('role.store');
 Route::get('/role/edit/{id}', [RoleController::class, 'edit'])->name('role.edit');
 Route::put('/role/{id}', [RoleController::class, 'update'])->name('role.update');
 Route::delete('/role/{id}', [RoleController::class, 'destroy'])->name('role.destroy');
+
+Route::get('/mobil', [MobilController::class, 'index'])->name('mobil.index');
+Route::get('/mobil/detail/{id}', [MobilController::class, 'detail'])->name('mobil.detail');
+Route::get('/mobil/create', [MobilController::class, 'create'])->name('mobil.create');
+Route::post('/mobil', [MobilController::class, 'store'])->name('mobil.store');
+Route::get('/mobil/edit/{id}', [MobilController::class, 'edit'])->name('mobil.edit');
+Route::put('/mobil/{id}', [MobilController::class, 'update'])->name('mobil.update');
+Route::delete('/mobil/{id}', [MobilController::class, 'destroy'])->name('mobil.destroy');
 
 Route::get('/bahanbakar', [BahanBakarController::class, 'index'])->name('bahanbakar.index');
 Route::get('/bahanbakar/create', [BahanBakarController::class, 'create'])->name('bahanbakar.create');

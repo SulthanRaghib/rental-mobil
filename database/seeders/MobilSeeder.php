@@ -14,7 +14,7 @@ class MobilSeeder extends Seeder
     {
         \App\Models\Mobil::factory()->create([
             'kode_mobil' => 'MBL-001',
-            'no_polisi' => 'B 1234 ABC',
+            'plat_nomor' => 'B 1234 ABC',
             'harga_sewa' => '100000',
             'kapasitas' => '4',
             'gambar_mobil' => 'mobil1.jpg',

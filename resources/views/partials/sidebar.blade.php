@@ -13,7 +13,8 @@
         </li><!-- End Dashboard Nav -->
 
         <li class="nav-item">
-            <a class="nav-link collapsed" style="{{ Route::is('role') ? 'background: #f6f9ff; color: #4154f1' : '' }}"
+            <a class="nav-link collapsed"
+                style="{{ Route::is('role.index') ? 'background: #f6f9ff; color: #4154f1' : '' }}"
                 href={{ route('role.index') }}>
                 <i class="bi bi-person-rolodex"></i>
                 <span>Role</span>
@@ -22,7 +23,16 @@
 
         <li class="nav-item">
             <a class="nav-link collapsed"
-                style="{{ Route::is('bahanbakar') ? 'background: #f6f9ff; color: #4154f1' : '' }}"
+                style="{{ Route::is('mobil.index') ? 'background: #f6f9ff; color: #4154f1' : '' }}"
+                href={{ route('mobil.index') }}>
+                <i class="bi bi-car-front-fill"></i>
+                <span>Mobil</span>
+            </a>
+        </li><!-- End Merek Nav -->
+
+        <li class="nav-item">
+            <a class="nav-link collapsed"
+                style="{{ Route::is('bahanbakar.index') ? 'background: #f6f9ff; color: #4154f1' : '' }}"
                 href={{ route('bahanbakar.index') }}>
                 <i class="bi bi-fuel-pump"></i>
                 <span>Bahan Bakar</span>
@@ -30,7 +40,8 @@
         </li><!-- End Bahan Bakar Nav -->
 
         <li class="nav-item">
-            <a class="nav-link collapsed" style="{{ Route::is('merek') ? 'background: #f6f9ff; color: #4154f1' : '' }}"
+            <a class="nav-link collapsed"
+                style="{{ Route::is('merek.index') ? 'background: #f6f9ff; color: #4154f1' : '' }}"
                 href={{ route('merek.index') }}>
                 <i class="bi bi-card-list"></i>
                 <span>Merek</span>

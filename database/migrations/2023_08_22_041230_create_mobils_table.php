@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('mobils', function (Blueprint $table) {
             $table->id();
             $table->string('kode_mobil', 10)->unique();
-            $table->string('no_polisi', 10)->unique();
+            $table->string('plat_nomor', 15)->unique();
             $table->string('harga_sewa');
             $table->string('kapasitas');
             $table->string('gambar_mobil');
