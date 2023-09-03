@@ -9,7 +9,7 @@ class HomeController extends Controller
     public function index()
     {
         return view('contents.homepage', [
-            'title' => 'homepage',
+            'title' => 'Home',
         ]);
     }
 }
