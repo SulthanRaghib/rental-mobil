@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\BahanBakarController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MerekController;
 use App\Http\Controllers\MobilController;
 use App\Http\Controllers\RoleController;
@@ -50,3 +51,6 @@ Route::post('/merek', [MerekController::class, 'store'])->name('merek.store');
 Route::get('/merek/edit/{id}', [MerekController::class, 'edit'])->name('merek.edit');
 Route::put('/merek/{id}', [MerekController::class, 'update'])->name('merek.update');
 Route::delete('/merek/{id}', [MerekController::class, 'destroy'])->name('merek.destroy');
+
+// front
+Route::get('/home', [HomeController::class, 'index'])->name('homepage');
