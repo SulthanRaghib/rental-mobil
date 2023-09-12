@@ -12,4 +12,11 @@ class HomeController extends Controller
             'title' => 'Home',
         ]);
     }
+
+    public function blank()
+    {
+        return view('contents.pages.blank', [
+            'title' => 'Blank',
+        ]);
+    }
 }
