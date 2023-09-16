@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('status');
             $table->foreignId('merek_id');
             $table->foreignId('bahan_bakar_id');
-            $table->foreignId('tipe_mobil_id');
+            $table->foreignId('type_mobil_id');
             $table->timestamps();
         });
     }

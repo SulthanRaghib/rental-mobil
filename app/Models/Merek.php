@@ -14,4 +14,10 @@ class Merek extends Model
     protected $fillable = [
         'nama_merek',
     ];
+
+    // Relasi One to Many ke tabel Mobil
+    public function mobil()
+    {
+        return $this->hasMany(Mobil::class);
+    }
 }

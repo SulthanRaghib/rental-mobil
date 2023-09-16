@@ -43,13 +43,12 @@ class MobilController extends Controller
             'kode_daerah' => 'required',
             'no_polisi' => 'required',
             'kode_wilayah' => 'required',
-            'plat_nomor' => 'unique:mobils',
             'harga_sewa' => 'required',
             'kapasitas' => 'required|numeric',
             'gambar_mobil' => 'required|mimes:jpg,jpeg,png,webp|image',
             'merek_id' => 'required',
             'bahan_bakar_id' => 'required',
-            'tipe_mobil_id' => 'required',
+            'type_mobil_id' => 'required',
         ];
 
         $messages = [
@@ -58,7 +57,6 @@ class MobilController extends Controller
             'kode_daerah.required' => 'Kode daerah harus diisi.',
             'no_polisi.required' => 'No polisi harus diisi.',
             'kode_wilayah.required' => 'Kode wilayah harus diisi.',
-            'plat_nomor.unique' => 'Plat nomor sudah ada.',
             'harga_sewa.required' => 'Harga sewa harus diisi.',
             'kapasitas.required' => 'Kapasitas harus diisi.',
             'kapasitas.numeric' => 'Kapasitas harus berupa angka.',
@@ -67,15 +65,8 @@ class MobilController extends Controller
             'gambar_mobil.mimes' => 'Gambar mobil harus berupa file: jpg, jpeg, png, webp.',
             'merek_id.required' => 'Merek harus diisi.',
             'bahan_bakar_id.required' => 'Bahan bakar harus diisi.',
-            'tipe_mobil_id.required' => 'Tipe mobil harus diisi.',
+            'type_mobil_id.required' => 'Tipe mobil harus diisi.',
         ];
-
-        // buat unique plat nomor berdasarkan input no polisi saja, apabila no polisi sudah ada maka tidak bisa membuat plat nomor yang sama
-        if ($request->no_polisi) {
-            $rules['plat_nomor'] = 'unique:mobils,plat_nomor' . $request->no_polisi;
-            $messages['plat_nomor.unique'] = 'Plat nomor sudah ada.';
-        }
-
 
         $this->validate($request, $rules, $messages);
 
@@ -93,7 +84,7 @@ class MobilController extends Controller
             'status' => 'Tersedia',
             'merek_id' => $request->merek_id,
             'bahan_bakar_id' => $request->bahan_bakar_id,
-            'tipe_mobil_id' => $request->tipe_mobil_id,
+            'type_mobil_id' => $request->type_mobil_id,
         ]);
 
         return redirect()->route('mobil.index')->with('success', 'Data mobil berhasil ditambahkan.');
@@ -104,9 +95,9 @@ class MobilController extends Controller
         return view('contents.pages.mobil.edit', [
             'title' => 'Mobil',
             'mobil' => Mobil::find($id),
-            'merek' => Merek::all(),
-            'type_mobil' => TypeMobil::all(),
-            'bahan_bakar' => BahanBakar::all(),
+            'merek' => Merek::with('mobil')->get(),
+            'type_mobil' => TypeMobil::with('mobil')->get(),
+            'bahan_bakar' => BahanBakar::with('mobil')->get(),
         ]);
     }
 
@@ -117,13 +108,12 @@ class MobilController extends Controller
             'kode_daerah' => 'required',
             'no_polisi' => 'required',
             'kode_wilayah' => 'required',
-            'plat_nomor' => 'unique:mobils,plat_nomor,' . $id,
             'harga_sewa' => 'required',
             'kapasitas' => 'required|numeric',
-            'gambar_mobil' => 'mimes:jpg,jpeg,png,bmp,gif,svg,webp|image',
+            'gambar_mobil' => 'nullable|mimes:jpg,jpeg,png,webp|image',
             'merek_id' => 'required',
             'bahan_bakar_id' => 'required',
-            'tipe_mobil_id' => 'required',
+            'type_mobil_id' => 'required',
         ];
 
         $messages = [
@@ -132,40 +122,36 @@ class MobilController extends Controller
             'kode_daerah.required' => 'Kode daerah harus diisi.',
             'no_polisi.required' => 'No polisi harus diisi.',
             'kode_wilayah.required' => 'Kode wilayah harus diisi.',
-            'plat_nomor.unique' => 'Plat nomor sudah ada.',
             'harga_sewa.required' => 'Harga sewa harus diisi.',
             'kapasitas.required' => 'Kapasitas harus diisi.',
             'kapasitas.numeric' => 'Kapasitas harus berupa angka.',
             'gambar_mobil.image' => 'Gambar mobil harus berupa file gambar.',
-            'gambar_mobil.mimes' => 'Gambar mobil harus berupa file: jpg, jpeg, png, bmp, gif, svg, webp.',
+            'gambar_mobil.mimes' => 'Gambar mobil harus berupa file: jpg, jpeg, png, webp.',
             'merek_id.required' => 'Merek harus diisi.',
             'bahan_bakar_id.required' => 'Bahan bakar harus diisi.',
-            'tipe_mobil_id.required' => 'Tipe mobil harus diisi.',
+            'type_mobil_id.required' => 'Tipe mobil harus diisi.',
         ];
 
         $this->validate($request, $rules, $messages);
 
-        $mobil = Mobil::find($id);
+        $mobilID = Mobil::find($id);
         $harga_sewa_number = str_replace(['Rp. ', '.'], '', $request->harga_sewa);
 
         if ($request->gambar_mobil) {
             $gambar_nama = 'mobil-' . time() . '.' . $request->gambar_mobil->extension();
             $path = public_path('assets/img/mobil');
             $request->gambar_mobil->move($path, $gambar_nama);
-            $mobil->update([
-                'gambar_mobil' => $gambar_nama,
-            ]);
+            $mobilID->gambar_mobil = $gambar_nama;
         }
 
-        $mobil->update([
-            'kode_mobil' => $request->kode_mobil,
-            'plat_nomor' => $request->kode_daerah . ' ' . $request->no_polisi . ' ' . $request->kode_wilayah,
-            'harga_sewa' => $harga_sewa_number,
-            'kapasitas' => $request->kapasitas,
-            'merek_id' => $request->merek_id,
-            'bahan_bakar_id' => $request->bahan_bakar_id,
-            'tipe_mobil_id' => $request->tipe_mobil_id,
-        ]);
+        $mobilID->kode_mobil = $request->kode_mobil;
+        $mobilID->plat_nomor = $request->kode_daerah . ' ' . $request->no_polisi . ' ' . $request->kode_wilayah;
+        $mobilID->harga_sewa = $harga_sewa_number;
+        $mobilID->kapasitas = $request->kapasitas;
+        $mobilID->merek_id = $request->merek_id;
+        $mobilID->bahan_bakar_id = $request->bahan_bakar_id;
+        $mobilID->type_mobil_id = $request->type_mobil_id;
+        $mobilID->save();
 
         return redirect()->route('mobil.index')->with('success', 'Data mobil berhasil diubah.');
     }

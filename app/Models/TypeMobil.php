@@ -14,4 +14,10 @@ class TypeMobil extends Model
     protected $fillable = [
         'nama_type_mobil',
     ];
+
+    // Relasi One to Many ke tabel Mobil
+    public function mobil()
+    {
+        return $this->hasMany(Mobil::class);
+    }
 }

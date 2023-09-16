@@ -14,4 +14,10 @@ class BahanBakar extends Model
     protected $fillable = [
         'nama_bahan_bakar',
     ];
+
+    // Relasi One to Many ke tabel Mobil
+    public function mobil()
+    {
+        return $this->hasMany(Mobil::class);
+    }
 }

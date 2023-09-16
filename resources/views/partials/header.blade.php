@@ -15,7 +15,9 @@
 
     <!-- Google Fonts -->
     <link href="https://fonts.gstatic.com" rel="preconnect">
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+        rel="stylesheet">
 
     <!-- Vendor CSS Files -->
     <link href={{ url('assets/vendor/bootstrap/css/bootstrap.min.css') }} rel="stylesheet">
@@ -47,8 +49,8 @@
     <header id="header" class="header fixed-top d-flex align-items-center">
 
         <div class="d-flex align-items-center justify-content-between">
-            <a href="index.html" class="logo d-flex align-items-center">
-                <img src={{ 'assets/img/logo.png' }} alt="">
+            <a href="{{ route('dashboard') }}" class="logo d-flex align-items-center">
+                <img src={{ url('assets/img/logo.png') }} alt="">
                 <span class="d-none d-lg-block">RentalMobil </span>
                 <h6 style="color: black;">Admin</h6>
             </a>
@@ -214,8 +216,9 @@
 
                 <li class="nav-item dropdown pe-3">
 
-                    <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-                        <img src={{ 'assets/img/defaultuser.png' }} alt="Profile" class="rounded-circle">
+                    <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#"
+                        data-bs-toggle="dropdown">
+                        <img src={{ url('assets/img/defaultuser.png') }} alt="Profile" class="rounded-circle">
                         <span class="d-none d-md-block dropdown-toggle ps-2">{{ Auth::user()->nama }}</span>
                     </a><!-- End Profile Iamge Icon -->
 
@@ -239,7 +242,8 @@
                         </li>
                         <li>
                             <form method="POST" action="{{ route('logout') }}">
-                                <a class="dropdown-item d-flex align-items-center" href="route('logout')" onclick="event.preventDefault();
+                                <a class="dropdown-item d-flex align-items-center" href="route('logout')"
+                                    onclick="event.preventDefault();
                                                 this.closest('form').submit();">
                                     <i class="bi bi-box-arrow-right"></i>
                                     @csrf

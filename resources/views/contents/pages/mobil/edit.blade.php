@@ -4,7 +4,7 @@
         <div class="card">
             <div class="card-body">
                 <div class="d-flex justify-content-between">
-                    <h5 class="card-title">Tambah Mobil</h5>
+                    <h5 class="card-title">Edit Mobil</h5>
 
                     <button type="button" class="btn btn-sm btn-warning my-3" data-bs-toggle="modal"
                         data-bs-target="#staticBackdrop">
@@ -35,54 +35,44 @@
                 </div>
 
                 <div class="table-responsive">
-                    <form action="{{ route('mobil.store') }}" method="POST" enctype="multipart/form-data">
+                    <form action="{{ route('mobil.update', $mobil->id) }}" method="POST" enctype="multipart/form-data">
                         @csrf
+                        @method('PUT')
+                        <input type="hidden" name="id" value="{{ $mobil->id }}">
                         <div class="mb-3">
                             <label for="kode_mobil" class="form-label">Kode Mobil</label>
                             <input type="text" class="form-control" id="kode_mobil" name="kode_mobil"
-                                value="{{ 'MBL-' . rand(100, 999) }}" readonly>
-                            <small class="text-danger">*Kode Mobil akan dibuat secara otomatis</small>
-                            @error('kode_mobil')
-                                <span class="text-danger mt-2">
-                                    {{ $message }}
-                                </span>
-                            @enderror
+                                value="{{ $mobil->kode_mobil }}" readonly>
+                            <div class="text-danger">
+                                <small>*Kode mobil tidak dapat diubah</small>
+                            </div>
                         </div>
 
                         <div class="mb-3">
                             <label for="no_polisi">Plat Nomor</label>
                             <div class="row mt-2">
                                 <div class="col-sm-2">
-                                    {{-- <label for="no_polisi">Kode Daerah</label> --}}
-                                    <input type="text" class="form-control" id="kode_daerah" placeholder="Kode Daerah"
-                                        name="kode_daerah" value="{{ old('kode_daerah') }}" maxlength="2">
+                                    {{-- ambil kata awal kode daerah dari plat_nomer dengan explode --}}
+                                    <input type="text" class="form-control" id="kode_daerah" name="kode_daerah"
+                                        value="{{ explode(' ', $mobil->plat_nomor)[0] }}" maxlength="2">
                                     @error('kode_daerah')
-                                        <span class="text-danger mt-2">
-                                            {{ $message }}
-                                        </span>
+                                        <span class="text-danger">{{ $message }}</span>
                                     @enderror
                                 </div>
                                 <div class="col-sm-7">
-                                    {{-- <label for="no_polisi">Nomor Polisi</label> --}}
-                                    <input type="number" class="form-control" id="no_polisi" placeholder="Nomor Polisi"
-                                        name="no_polisi" value="{{ old('no_polisi') }}"
+                                    <input type="number" class="form-control" id="no_polisi" name="no_polisi"
+                                        value="{{ explode(' ', $mobil->plat_nomor)[1] }}"
                                         oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
                                         maxlength="4">
                                     @error('no_polisi')
-                                        <span class="text-danger mt-2">
-                                            {{ $message }}
-                                        </span>
+                                        <span class="text-danger">{{ $message }}</span>
                                     @enderror
                                 </div>
                                 <div class="col-sm-3">
-                                    {{-- <label for="no_polisi">Kode Daftar Wilayah</label> --}}
-                                    <input type="text" class="form-control" id="kode_wilayah"
-                                        placeholder="Kode Daftar Wilayah" name="kode_wilayah"
-                                        value="{{ old('kode_wilayah') }}" maxlength="3" pattern="[A-Z]{3}">
+                                    <input type="text" class="form-control" id="kode_wilayah" name="kode_wilayah"
+                                        value="{{ explode(' ', $mobil->plat_nomor)[2] }}" maxlength="3">
                                     @error('kode_wilayah')
-                                        <span class="text-danger mt-2">
-                                            {{ $message }}
-                                        </span>
+                                        <span class="text-danger">{{ $message }}</span>
                                     @enderror
                                 </div>
                             </div>
@@ -91,48 +81,48 @@
                         <div class="mb-3">
                             <div class="row mt-2">
                                 <div class="col-sm-4">
-                                    <label for="merek_id" class="form-label">Merek</label>
+                                    <label for="merk_id" class="form-label">Merk</label>
                                     <select class="form-select" id="merek_id" name="merek_id">
-                                        <option selected disabled>Pilih Merek</option>
+                                        <option value="{{ $mobil->merek_id }}" selected>{{ $mobil->merek->nama_merek }}
+                                        </option>
                                         @foreach ($merek as $m)
-                                            <option value="{{ $m->id }}" @selected(old('merek_id') == $m->id)>
-                                                {{ $m->nama_merek }}</option>
+                                            @if ($m->id != $mobil->merek_id)
+                                                <option value="{{ $m->id }}">{{ $m->nama_merek }}</option>
+                                            @endif
                                         @endforeach
                                     </select>
                                     @error('merek_id')
-                                        <span class="text-danger mt-2">
-                                            {{ $message }}
-                                        </span>
+                                        <span class="text-danger">{{ $message }}</span>
                                     @enderror
                                 </div>
                                 <div class="col-sm-4">
                                     <label for="type_mobil_id" class="form-label">Tipe Mobil</label>
                                     <select class="form-select" id="type_mobil_id" name="type_mobil_id">
-                                        <option selected disabled>Pilih Tipe Mobil</option>
+                                        <option value="{{ $mobil->type_mobil_id }}" selected>
+                                            {{ $mobil->type_mobil->nama_type_mobil }}</option>
                                         @foreach ($type_mobil as $tm)
-                                            <option value="{{ $tm->id }}" @selected(old('type_mobil_id') == $tm->id)>
-                                                {{ $tm->nama_type_mobil }}</option>
+                                            @if ($tm->id != $mobil->type_mobil_id)
+                                                <option value="{{ $tm->id }}">{{ $tm->nama_type_mobil }}</option>
+                                            @endif
                                         @endforeach
                                     </select>
                                     @error('type_mobil_id')
-                                        <span class="text-danger mt-2">
-                                            {{ $message }}
-                                        </span>
+                                        <span class="text-danger">{{ $message }}</span>
                                     @enderror
                                 </div>
                                 <div class="col-sm-4">
-                                    <label for="bahan_bakar" class="form-label">Bahan Bakar</label>
+                                    <label for="bahan_bakar_id" class="form-label">Bahan Bakar</label>
                                     <select class="form-select" id="bahan_bakar_id" name="bahan_bakar_id">
-                                        <option selected disabled>Pilih Bahan Bakar</option>
+                                        <option value="{{ $mobil->bahan_bakar_id }}" selected>
+                                            {{ $mobil->bahan_bakar->nama_bahan_bakar }}</option>
                                         @foreach ($bahan_bakar as $bb)
-                                            <option value="{{ $bb->id }}" @selected(old('bahan_bakar_id') == $bb->id)>
-                                                {{ $bb->nama_bahan_bakar }}</option>
+                                            @if ($bb->id != $mobil->bahan_bakar_id)
+                                                <option value="{{ $bb->id }}">{{ $bb->nama_bahan_bakar }}</option>
+                                            @endif
                                         @endforeach
                                     </select>
                                     @error('bahan_bakar_id')
-                                        <span class="text-danger mt-2">
-                                            {{ $message }}
-                                        </span>
+                                        <span class="text-danger">{{ $message }}</span>
                                     @enderror
                                 </div>
                             </div>
@@ -143,24 +133,20 @@
                                 <div class="col-sm-6">
                                     <label for="kapasitas" class="form-label">Kapasitas</label>
                                     <input type="number" class="form-control" id="kapasitas" name="kapasitas"
-                                        value="{{ old('kapasitas') }}">
+                                        value="{{ $mobil->kapasitas }}">
                                     @error('kapasitas')
-                                        <span class="text-danger mt-2">
-                                            {{ $message }}
-                                        </span>
+                                        <span class="text-danger">{{ $message }}</span>
                                     @enderror
                                 </div>
                                 <div class="col-sm-6">
                                     <label for="harga_sewa" class="form-label">Harga Sewa</label>
                                     <div class="input-group">
                                         <input type="text" class="form-control" id="harga_sewa" name="harga_sewa"
-                                            value="{{ old('harga_sewa') }}">
+                                            value="Rp. {{ number_format($mobil->harga_sewa, 0, ',', '.') }}">
                                         <span class="input-group-text" id="basic-addon1">/ Jam</span>
                                     </div>
                                     @error('harga_sewa')
-                                        <span class="text-danger mt-2">
-                                            {{ $message }}
-                                        </span>
+                                        <span class="text-danger">{{ $message }}</span>
                                     @enderror
                                 </div>
                             </div>
@@ -171,33 +157,28 @@
                                 <div class="col-sm-8">
                                     <label for="gambar_mobil" class="form-label">Gambar Mobil</label>
                                     <div class="input-group">
-                                        <input type="file" class="form-control" id="gambar_mobil"
-                                            aria-describedby="inputGroupFileAddon04" aria-label="Upload"
-                                            name="gambar_mobil" value="{{ old('gambar_mobil') }}">
-                                        <button class="btn btn-outline-secondary" type="button"
-                                            id="hapus_gambar">Hapus</button>
+                                        <input type="file" class="form-control" id="gambar_mobil" name="gambar_mobil" value="{{ $mobil->gambar_mobil }}">
+                                        <button class="btn btn-outline-secondary" type="button" id="hapus_gambar">
+                                            Hapus</button>
                                     </div>
                                     @error('gambar_mobil')
-                                        <span class="text-danger mt-2">
-                                            {{ $message }}
-                                        </span>
+                                        <span class="text-danger">{{ $message }}</span>
                                     @enderror
                                 </div>
-
                                 <div class="col-sm-4">
-                                    <div id="show_image"></div>
+                                    <img src="{{ asset('assets/img/mobil/' . $mobil->gambar_mobil) }}" alt="gambar_mobil"
+                                        class="img-thumbnail img-fluid" id="show_image">
                                 </div>
                             </div>
                         </div>
 
-                        <button type="submit" class="btn btn-primary">Tambah Mobil</button>
+                        <button type="submit" class="btn btn-primary">Simpan</button>
 
                     </form>
                 </div>
             </div>
         </div>
     </div>
-
     <script>
         let harga_sewa = document.getElementById('harga_sewa');
         harga_sewa.addEventListener('keyup', function(e) {
@@ -223,19 +204,16 @@
     </script>
     <script>
         let gambar_mobil = document.getElementById('gambar_mobil');
-        gambar_mobil.addEventListener('change', function(e) {
-            let show_image = document.getElementById('show_image');
-            show_image.innerHTML =
-                `<img src="${URL.createObjectURL(e.target.files[0])}" alt="Gambar Mobil" class="img-fluid mt-2" width="100%">`;
-        });
-    </script>
-    <script>
+        let show_image = document.getElementById('show_image');
         let hapus_gambar = document.getElementById('hapus_gambar');
+
+        gambar_mobil.addEventListener('change', function(e) {
+            show_image.src = URL.createObjectURL(e.target.files[0]);
+        });
+
         hapus_gambar.addEventListener('click', function(e) {
-            let show_image = document.getElementById('show_image');
-            let gambar_mobil = document.getElementById('gambar_mobil');
-            show_image.innerHTML = '';
-            gambar_mobil.value = '';
+            show_image.src = 'https://eshop.czechminibreweries.com/wp-content/uploads/2015/05/not-selected.jpg';
+            gambar_mobil.setAttribute('value', '');
         });
     </script>
     <script>

@@ -21,7 +21,7 @@ class MobilSeeder extends Seeder
             'status' => 'Tersedia',
             'merek_id' => '1',
             'bahan_bakar_id' => '1',
-            'tipe_mobil_id' => '1',
+            'type_mobil_id' => '1',
         ]);
     }
 }
