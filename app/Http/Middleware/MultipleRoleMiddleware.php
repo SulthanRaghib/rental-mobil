@@ -18,8 +18,7 @@ class MultipleRoleMiddleware
         if (auth()->check() && in_array(auth()->user()->role_id, $roles)) {
             return $next($request);
         }
-    
-        return abort(403); // User does not have the required role(s); return a 403 Forbidden response.
+
+        return redirect()->route('login')->with('error', 'You do not have the right permissions.');
     }
-    
 }
