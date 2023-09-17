@@ -4,7 +4,7 @@
         <div class="card">
             <div class="card-body">
                 <div class="d-flex justify-content-between">
-                    <h5 class="card-title">Detail Mobil</h5>
+                    <h5 class="card-title">Detail Mobil | Pemilik : {{ Auth::user()->nama_perusahaan }}</h5>
 
                     <a href="{{ route('mobil.index') }}" class="btn btn-sm btn-warning my-3">
                         Kembali <i class="bi bi-arrow-left-circle pl-5"></i>
@@ -56,7 +56,7 @@
                                     </tr>
                                     <tr>
                                         <th>Harga Sewa</th>
-                                        <td>Rp. {{ number_format($mobil->harga_sewa, 0, ',', '.') }}/Jam</td>
+                                        <td>Rp. {{ number_format($mobil->harga_sewa, 0, ',', '.') }}/hari</td>
                                     </tr>
                                 </tbody>
                             </table>

@@ -5,8 +5,11 @@ use App\Http\Controllers\BahanBakarController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MerekController;
+use App\Http\Controllers\MitraController;
 use App\Http\Controllers\MobilController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\SewaController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -22,12 +25,22 @@ use Illuminate\Support\Facades\Route;
 
 // front
 Route::get('/', [HomeController::class, 'index'])->name('homepage');
+Route::get('/find-cars', [HomeController::class, 'findCars'])->name('find-cars');
+Route::get('/search', [HomeController::class, 'search'])->name('search');
+Route::get('/detail-mobil/{id}', [HomeController::class, 'cekMobil'])->name('cek-mobil');
+
 
 Route::middleware('auth')->group(function () {
+
+    Route::get('/sewa', [SewaController::class, 'sewa'])->name('sewa.index');
+    Route::get('/sewa/create', [SewaController::class, 'create'])->name('sewa.create');
+    Route::post('/sewa', [SewaController::class, 'store'])->name('sewa.store');
+    Route::get('/sewa/edit/{id}', [SewaController::class, 'edit'])->name('sewa.edit');
 
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::get('/pages-blank', [DashboardController::class, 'blank'])->name('pages-blank');
 
+    Route::get('/user', [UserController::class, 'index'])->name('user.index');
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
@@ -47,6 +60,15 @@ Route::middleware('auth')->group(function () {
     Route::get('/mobil/edit/{id}', [MobilController::class, 'edit'])->name('mobil.edit');
     Route::put('/mobil/{id}', [MobilController::class, 'update'])->name('mobil.update');
     Route::delete('/mobil/{id}', [MobilController::class, 'destroy'])->name('mobil.destroy');
+
+    Route::get('/mitra', [MitraController::class, 'index'])->name('mitra.index');
+    Route::get('/mitra/create', [MitraController::class, 'create'])->name('mitra.create');
+    Route::get('/mitra/detail/{id}', [MitraController::class, 'detail'])->name('mitra.detail');
+    Route::post('/mitra', [MitraController::class, 'store'])->name('mitra.store');
+    Route::get('/mitra/edit/{id}', [MitraController::class, 'edit'])->name('mitra.edit');
+    Route::put('/mitra/{id}', [MitraController::class, 'update'])->name('mitra.update');
+    Route::delete('/mitra/{id}', [MitraController::class, 'destroy'])->name('mitra.destroy');
+    Route::get('/mitra/update-password/{id}', [MitraController::class, 'updatePassword'])->name('mitra.updatePassword');
 
     Route::get('/bahanbakar', [BahanBakarController::class, 'index'])->name('bahanbakar.index');
     Route::get('/bahanbakar/create', [BahanBakarController::class, 'create'])->name('bahanbakar.create');

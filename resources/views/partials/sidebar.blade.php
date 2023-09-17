@@ -3,52 +3,100 @@
 
     <ul class="sidebar-nav" id="sidebar-nav">
 
-        <li class="nav-item">
-            <a class="nav-link collapsed"
-                style="{{ Route::is('dashboard') ? 'background: #f6f9ff; color: #4154f1' : '' }}"
-                href={{ route('dashboard') }}>
-                <i class="bi bi-grid"></i>
-                <span>Dashboard</span>
-            </a>
-        </li><!-- End Dashboard Nav -->
+        @if (Auth::user()->role_id == 3)
+            <li class="nav-item">
+                <a class="nav-link collapsed"
+                    style="{{ Route::is('dashboard') ? 'background: #f6f9ff; color: #4154f1' : '' }}"
+                    href={{ route('dashboard') }}>
+                    <i class="bi bi-grid"></i>
+                    <span>Dashboard</span>
+                </a>
+            </li><!-- End Dashboard Nav -->
 
-        <li class="nav-item">
-            <a class="nav-link collapsed"
-                style="{{ Route::is('role.index') ? 'background: #f6f9ff; color: #4154f1' : '' }}"
-                href={{ route('role.index') }}>
-                <i class="bi bi-person-rolodex"></i>
-                <span>Role</span>
-            </a>
-        </li><!-- End Blank Page Nav -->
+            <li class="nav-item">
+                <a class="nav-link collapsed"
+                    style="{{ Route::is('mobil.index') ? 'background: #f6f9ff; color: #4154f1' : '' }}"
+                    href={{ route('mobil.index') }}>
+                    <i class="bi bi-car-front-fill"></i>
+                    <span>Mobil</span>
+                </a>
+            </li><!-- End Mobil Nav -->
 
-        <li class="nav-item">
-            <a class="nav-link collapsed"
-                style="{{ Route::is('mobil.index') ? 'background: #f6f9ff; color: #4154f1' : '' }}"
-                href={{ route('mobil.index') }}>
-                <i class="bi bi-car-front-fill"></i>
-                <span>Mobil</span>
-            </a>
-        </li><!-- End Merek Nav -->
+            <li class="nav-item">
+                <a class="nav-link collapsed"
+                    style="{{ Route::is('mitra.index') ? 'background: #f6f9ff; color: #4154f1' : '' }}"
+                    href={{ route('mitra.index') }}>
+                    <i class="bi bi-people-fill"></i>
+                    <span>Mitra</span>
+                </a>
+            </li><!-- End Mitra Nav -->
+        @else
+            <li class="nav-item">
+                <a class="nav-link collapsed"
+                    style="{{ Route::is('dashboard') ? 'background: #f6f9ff; color: #4154f1' : '' }}"
+                    href={{ route('dashboard') }}>
+                    <i class="bi bi-grid"></i>
+                    <span>Dashboard</span>
+                </a>
+            </li><!-- End Dashboard Nav -->
 
-        <li class="nav-item">
-            <a class="nav-link collapsed"
-                style="{{ Route::is('bahanbakar.index') ? 'background: #f6f9ff; color: #4154f1' : '' }}"
-                href={{ route('bahanbakar.index') }}>
-                <i class="bi bi-fuel-pump"></i>
-                <span>Bahan Bakar</span>
-            </a>
-        </li><!-- End Bahan Bakar Nav -->
+            <li class="nav-item">
+                <a class="nav-link collapsed"
+                    style="{{ Route::is('mobil.index') ? 'background: #f6f9ff; color: #4154f1' : '' }}"
+                    href={{ route('mobil.index') }}>
+                    <i class="bi bi-car-front-fill"></i>
+                    <span>Mobil</span>
+                </a>
+            </li><!-- End Mobil Nav -->
 
-        <li class="nav-item">
-            <a class="nav-link collapsed"
-                style="{{ Route::is('merek.index') ? 'background: #f6f9ff; color: #4154f1' : '' }}"
-                href={{ route('merek.index') }}>
-                <i class="bi bi-card-list"></i>
-                <span>Merek</span>
-            </a>
-        </li><!-- End Merek Nav -->
+            <li class="nav-item">
+                <a class="nav-link collapsed"
+                    style="{{ Route::is('mitra.index') ? 'background: #f6f9ff; color: #4154f1' : '' }}"
+                    href={{ route('mitra.index') }}>
+                    <i class="bi bi-people-fill"></i>
+                    <span>Mitra</span>
+                </a>
+            </li><!-- End Mitra Nav -->
 
-        <li class="nav-item">
+            <li class="nav-item">
+                <a class="nav-link collapsed"
+                    style="{{ Route::is('user.index') ? 'background: #f6f9ff; color: #4154f1' : '' }}"
+                    href={{ route('user.index') }}>
+                    <i class="bi bi-person"></i>
+                    <span>User</span>
+                </a>
+            </li><!-- End Mitra Nav -->
+
+
+            <li class="nav-item">
+                <a class="nav-link collapsed"
+                    style="{{ Route::is('role.index') ? 'background: #f6f9ff; color: #4154f1' : '' }}"
+                    href={{ route('role.index') }}>
+                    <i class="bi bi-person-rolodex"></i>
+                    <span>Role</span>
+                </a>
+            </li><!-- End Role Nav -->
+
+            <li class="nav-item">
+                <a class="nav-link collapsed"
+                    style="{{ Route::is('bahanbakar.index') ? 'background: #f6f9ff; color: #4154f1' : '' }}"
+                    href={{ route('bahanbakar.index') }}>
+                    <i class="bi bi-fuel-pump"></i>
+                    <span>Bahan Bakar</span>
+                </a>
+            </li><!-- End Bahan Bakar Nav -->
+
+            <li class="nav-item">
+                <a class="nav-link collapsed"
+                    style="{{ Route::is('merek.index') ? 'background: #f6f9ff; color: #4154f1' : '' }}"
+                    href={{ route('merek.index') }}>
+                    <i class="bi bi-card-list"></i>
+                    <span>Merek</span>
+                </a>
+            </li><!-- End Merek Nav -->
+        @endif
+
+        {{-- <li class="nav-item">
             <a class="nav-link collapsed"
                 style="{{ Route::is('pages-blank') ? 'background: #f6f9ff; color: #4154f1' : '' }}"
                 href={{ route('pages-blank') }}>
@@ -57,7 +105,7 @@
             </a>
         </li><!-- End Blank Page Nav -->
 
-        <li class="nav-item">
+         <li class="nav-item">
             <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
                 <i class="bi bi-menu-button-wide"></i><span>Components</span><i class="bi bi-chevron-down ms-auto"></i>
             </a>
@@ -270,7 +318,7 @@
                 <i class="bi bi-dash-circle"></i>
                 <span>Error 404</span>
             </a>
-        </li><!-- End Error 404 Page Nav -->
+        </li><!-- End Error 404 Page Nav --> --}}
 
     </ul>
 

@@ -45,4 +45,16 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    // Relasi Many to One ke tabel Role
+    public function role()
+    {
+        return $this->belongsTo(Role::class);
+    }
+
+    // Relasi One to Many ke tabel Mobil
+    public function mobil()
+    {
+        return $this->hasMany(Mobil::class);
+    }
 }

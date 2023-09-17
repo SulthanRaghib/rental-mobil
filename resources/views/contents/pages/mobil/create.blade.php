@@ -37,6 +37,9 @@
                 <div class="table-responsive">
                     <form action="{{ route('mobil.store') }}" method="POST" enctype="multipart/form-data">
                         @csrf
+                        {{-- get user id --}}
+                        <input type="hidden" name="user_id" id="user_id" value="{{ Auth::user()->id }}">
+
                         <div class="mb-3">
                             <label for="kode_mobil" class="form-label">Kode Mobil</label>
                             <input type="text" class="form-control" id="kode_mobil" name="kode_mobil"
@@ -140,7 +143,7 @@
 
                         <div class="mb-3">
                             <div class="row mt-2">
-                                <div class="col-sm-6">
+                                <div class="col-sm-4">
                                     <label for="kapasitas" class="form-label">Kapasitas</label>
                                     <input type="number" class="form-control" id="kapasitas" name="kapasitas"
                                         value="{{ old('kapasitas') }}">
@@ -150,14 +153,25 @@
                                         </span>
                                     @enderror
                                 </div>
-                                <div class="col-sm-6">
+                                <div class="col-sm-4">
                                     <label for="harga_sewa" class="form-label">Harga Sewa</label>
                                     <div class="input-group">
                                         <input type="text" class="form-control" id="harga_sewa" name="harga_sewa"
                                             value="{{ old('harga_sewa') }}">
-                                        <span class="input-group-text" id="basic-addon1">/ Jam</span>
+                                        <span class="input-group-text" id="basic-addon1">/ hari</span>
                                     </div>
                                     @error('harga_sewa')
+                                        <span class="text-danger mt-2">
+                                            {{ $message }}
+                                        </span>
+                                    @enderror
+                                </div>
+                                <div class="col-sm-4">
+                                    <label for="mitra" class="form-label">Nama Perusahaan</label>
+                                    <input type="text" class="form-control" id="mitra_id" name="mitra_id"
+                                        value="{{ Auth::user()->nama_perusahaan }}" readonly>
+                                    <small class="text-danger">*Nama Perusahaan akan diambil secara otomatis</small>
+                                    @error('mitra_id')
                                         <span class="text-danger mt-2">
                                             {{ $message }}
                                         </span>

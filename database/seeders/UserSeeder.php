@@ -18,8 +18,8 @@ class UserSeeder extends Seeder
             'nama' => 'Test User',
             'email' => 'user@gmail.com',
             'password' => Hash::make('user123'),
-            'no_telp' => '081234567890',
-            'alamat' => 'Jl. Raya No. 1',
+            'no_telp' => '',
+            'alamat' => '',
             'remember_token' => Str::random(10),
             'role_id' => '2',
         ]);
@@ -32,6 +32,28 @@ class UserSeeder extends Seeder
             'alamat' => 'Jl. Raya No. 1',
             'remember_token' => Str::random(10),
             'role_id' => '1',
+        ]);
+
+        \App\Models\User::factory()->create([
+            'nama' => 'Test Mitra',
+            'email' => 'mitra@gmail.com',
+            'password' => Hash::make('mitra123'),
+            'no_telp' => '081234567890',
+            'alamat' => 'Jl. Raya No. 1',
+            'nama_perusahaan' => 'Rental John',
+            'remember_token' => Str::random(10),
+            'role_id' => '3',
+        ]);
+
+        \App\Models\User::factory()->create([
+            'nama' => 'Test Mitra 2',
+            'email' => 'mitra2@gmail.com',
+            'password' => Hash::make('mitra123'),
+            'no_telp' => '081234567890',
+            'alamat' => 'Jl. Raya No. 1',
+            'nama_perusahaan' => 'Rental Biksau',
+            'remember_token' => Str::random(10),
+            'role_id' => '3',
         ]);
     }
 }

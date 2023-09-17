@@ -6,6 +6,7 @@ use App\Models\BahanBakar;
 use App\Models\Merek;
 use App\Models\Mobil;
 use App\Models\TypeMobil;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class MobilController extends Controller
@@ -33,6 +34,7 @@ class MobilController extends Controller
             'merek' => Merek::all(),
             'type_mobil' => TypeMobil::all(),
             'bahan_bakar' => BahanBakar::all(),
+            'mitra' => User::all()->where('role_id', 3),
         ]);
     }
 
@@ -85,6 +87,7 @@ class MobilController extends Controller
             'merek_id' => $request->merek_id,
             'bahan_bakar_id' => $request->bahan_bakar_id,
             'type_mobil_id' => $request->type_mobil_id,
+            'user_id' => $request->user_id,
         ]);
 
         return redirect()->route('mobil.index')->with('success', 'Data mobil berhasil ditambahkan.');
@@ -98,6 +101,7 @@ class MobilController extends Controller
             'merek' => Merek::with('mobil')->get(),
             'type_mobil' => TypeMobil::with('mobil')->get(),
             'bahan_bakar' => BahanBakar::with('mobil')->get(),
+            'mitra' => User::all()->where('role_id', 3)
         ]);
     }
 
@@ -151,6 +155,7 @@ class MobilController extends Controller
         $mobilID->merek_id = $request->merek_id;
         $mobilID->bahan_bakar_id = $request->bahan_bakar_id;
         $mobilID->type_mobil_id = $request->type_mobil_id;
+        $mobilID->user_id = $request->user_id;
         $mobilID->save();
 
         return redirect()->route('mobil.index')->with('success', 'Data mobil berhasil diubah.');

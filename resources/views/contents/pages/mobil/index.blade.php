@@ -25,47 +25,81 @@
                                 <th>Action</th>
                             </tr>
                         </thead>
-
-                        @if ($mobil->isEmpty())
-                            <tbody>
-                                <tr>
-                                    <td colspan="8" class="text-center">Data Kosong</td>
-                                </tr>
-                            </tbody>
-                        @endif
                         <tbody>
                             @foreach ($mobil as $m)
-                                <tr>
-                                    <td>{{ $loop->iteration }}</td>
-                                    <td>{{ $m->kode_mobil }}</td>
-                                    <td>{{ $m->plat_nomor }}</td>
-                                    <td>{{ $m->nama_merek }}</td>
-                                    <td>{{ $m->nama_type_mobil }}</td>
-                                    <td>{{ $m->kapasitas }} Orang</td>
-                                    <td>
-                                        @if ($m->status == 'Tersedia')
-                                            <span class="badge bg-success">Tersedia</span>
-                                        @else
-                                            <span class="badge bg-danger">Tidak Tersedia</span>
-                                        @endif
-                                    <td>
-                                        <a href="{{ route('mobil.detail', $m->id) }}" class="btn btn-sm btn-info">
-                                            Detail <i class="bi bi-eye"></i>
-                                        </a>
-                                        <a href="{{ route('mobil.edit', $m->id) }}" class="btn btn-sm btn-warning">
-                                            Edit <i class="bi bi-pencil-square"></i>
-                                        </a>
-                                        <form action="{{ route('mobil.destroy', $m->id) }}" method="POST"
-                                            class="d-inline btn_hapus">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="btn btn-sm btn-danger btn_hapus"
-                                                onclick="btn_hapus('{{ $m->kode_mobil }}')" {{-- onclick="return confirm('Apakah anda yakin ingin menghapus data ID={{ $m->id }} ini?')" --}}>
-                                                Hapus <i class="bi bi-trash"></i>
-                                            </button>
-                                        </form>
-                                    </td>
-                                </tr>
+                                @if ($m->user_id == Auth::user()->id)
+                                    <tr>
+                                        <td>
+                                            @if ($m->user_id == Auth::user()->id)
+                                                {{ $loop->iteration }}
+                                            @endif
+                                        </td>
+                                        <td>{{ $m->kode_mobil }}</td>
+                                        <td>{{ $m->plat_nomor }}</td>
+                                        <td>{{ $m->nama_merek }}</td>
+                                        <td>{{ $m->nama_type_mobil }}</td>
+                                        <td>{{ $m->kapasitas }} Orang</td>
+                                        <td>
+                                            @if ($m->status == 'Tersedia')
+                                                <span class="badge bg-success">Tersedia</span>
+                                            @else
+                                                <span class="badge bg-danger">Tidak Tersedia</span>
+                                            @endif
+                                        </td>
+                                        <td>
+                                            <a href="{{ route('mobil.detail', $m->id) }}" class="btn btn-sm btn-info">
+                                                Detail <i class="bi bi-eye"></i>
+                                            </a>
+                                            <a href="{{ route('mobil.edit', $m->id) }}" class="btn btn-sm btn-warning">
+                                                Edit <i class="bi bi-pencil-square"></i>
+                                            </a>
+                                            <form action="{{ route('mobil.destroy', $m->id) }}" method="POST"
+                                                class="d-inline btn_hapus">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-sm btn-danger btn_hapus"
+                                                    onclick="btn_hapus('{{ $m->kode_mobil }}')" {{-- onclick="return confirm('Apakah anda yakin ingin menghapus data ID={{ $m->id }} ini?')" --}}>
+                                                    Hapus <i class="bi bi-trash"></i>
+                                                </button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                @elseif (Auth::user()->role_id == 1)
+                                    @foreach ($mobil as $m)
+                                        <tr>
+                                            <td>{{ $loop->iteration }}</td>
+                                            <td>{{ $m->kode_mobil }}</td>
+                                            <td>{{ $m->plat_nomor }}</td>
+                                            <td>{{ $m->nama_merek }}</td>
+                                            <td>{{ $m->nama_type_mobil }}</td>
+                                            <td>{{ $m->kapasitas }} Orang</td>
+                                            <td>
+                                                @if ($m->status == 'Tersedia')
+                                                    <span class="badge bg-success">Tersedia</span>
+                                                @else
+                                                    <span class="badge bg-danger">Tidak Tersedia</span>
+                                                @endif
+                                            </td>
+                                            <td>
+                                                <a href="{{ route('mobil.detail', $m->id) }}" class="btn btn-sm btn-info">
+                                                    Detail <i class="bi bi-eye"></i>
+                                                </a>
+                                                {{-- <a href="{{ route('mobil.edit', $m->id) }}" class="btn btn-sm btn-warning">
+                                                    Edit <i class="bi bi-pencil-square"></i>
+                                                </a> --}}
+                                                <form action="{{ route('mobil.destroy', $m->id) }}" method="POST"
+                                                    class="d-inline btn_hapus">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="btn btn-sm btn-danger btn_hapus"
+                                                        onclick="btn_hapus('{{ $m->kode_mobil }}')" {{-- onclick="return confirm('Apakah anda yakin ingin menghapus data ID={{ $m->id }} ini?')" --}}>
+                                                        Hapus <i class="bi bi-trash"></i>
+                                                    </button>
+                                                </form>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                @endif
                             @endforeach
                         </tbody>
                     </table>

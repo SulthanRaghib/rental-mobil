@@ -1,99 +1,135 @@
-{{-- homepages --}}
+@extends('mainfrontend')
+@section('styles')
+    <!-- Bootstrap icons-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet" />
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <link href="{{ url('fe/css/styles.css') }}" rel="stylesheet" />
+    <link rel="stylesheet" href="css/custom.css" />
+@endsection
 
-@extends('mainhomepage')
 @section('content')
-    <div>
-        <!-- car -->
-        <div class="car">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="titlepage">
-                            <h2>VARIETY OF CARS </h2>
-                            <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
-                                ut
-                                labore et dolore magna</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-4 padding_leri">
-                        <div class="car_box">
-                            <figure><img src="images/car_img1.png" alt="#" /></figure>
-                            <h3>Hyundai</h3>
-                        </div>
-                    </div>
-                    <div class="col-md-4 padding_leri">
-                        <div class="car_box">
-                            <figure><img src="images/car_img2.png" alt="#" /></figure>
-                            <h3>Audi</h3>
-                        </div>
-                    </div>
-                    <div class="col-md-4 padding_leri">
-                        <div class="car_box">
-                            <figure><img src="images/car_img3.png" alt="#" /></figure>
-                            <h3>Bmw x5</h3>
-                        </div>
-                    </div>
-                </div>
+    <!-- Header-->
+    <header class="bg-dark py-5">
+        <div class="container px-4 px-lg-5 my-5">
+            <div class="text-center text-white">
+                <h1 class="display-4 fw-bolder">Sewa Mobil</h1>
+                <p class="lead fw-normal text-white-50 mb-0">
+                    hanya dengan satu sentuhan
+                </p>
             </div>
         </div>
-        <!-- end car -->
+    </header>
+    <!-- Section-->
+    <section class="py-5">
+        <div class="container px-4 px-lg-5 mt-5">
+            <h3 class="text-center mb-3">Daftar Mobil</h3>
 
-        <!-- bestCar -->
-        <div id="contact" class="bestCar">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-12">
-                    </div>
+            {{-- buat button search, apabila di klik, muncul inputan --}}
+            <div class="row text-center mb-3">
+                <div class="col-md-12">
+                    Ingin mencari mobil yang sesuai dengan keinginan anda? klik tombol ini
+                    <button class="btn btn-primary" id="btn-search"><i class="bi bi-search"></i> Cari</button>
                 </div>
-                <div class="row">
-                    <div class="col-sm-12">
-                        <div class="row">
-                            <div class="col-md-6 offset-md-6">
-                                <form class="main_form">
-                                    <div class="titlepage">
-                                        <h2>Find A Best Car For Rent</h2>
+            </div>
+
+            {{-- buat inputan search di tengah tengah --}}
+            <div class="row mb-5" id="search">
+                <form action="{{ route('search') }}" method="GET">
+                    @csrf
+                    {{-- Type Mobil --}}
+                    <div class="form-group mb-3">
+                        <div class="col-md-8 offset-md-2">
+                            <select class="form-select" name="type_mobil" id="type_mobil">
+                                <option value="">Pilih Type Mobil</option>
+                                @foreach ($type_mobil as $tm)
+                                    <option value="{{ $tm->id }}">{{ $tm->nama_type_mobil }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+
+
+                </form>
+            </div>
+
+            <div class="row gx-4 gx-lg-5 row-cols-1 row-cols-md-3 row-cols-xl-3 justify-content-center">
+                @foreach ($mobil as $m)
+                    <div class="col mb-5">
+                        <div class="card h-100">
+                            <!-- Sale badge-->
+                            <div class="badge badge-custom bg-warning text-white position-absolute"
+                                style="top: 0; right: 0">
+                                {{ $m->status }}
+                            </div>
+                            <!-- Product image-->
+                            <img class="card-img-top" src="{{ asset('assets/img/mobil/' . $m->gambar_mobil) }}"
+                                alt="gambar mobil" />
+                            <!-- Product details-->
+                            <div class="card-body card-body-custom pt-4">
+                                <div class="text-center">
+                                    <!-- Product name-->
+                                    <h5 class="fw-bolder">{{ $m->nama_mobil }}</h5>
+                                    <!-- Product price-->
+                                    <div class="rent-price mb-3">
+                                        <span class="text-primary">{{ 'Rp. ' . number_format($m->harga_sewa, 0, ',', '.') }}
+                                            /</span>Hari
                                     </div>
-                                    <div class="row">
-                                        <div class="col-md-12 ">
-                                            <select>
-                                                <option value="0">Choose car Make</option>
-                                                <option value="1">1</option>
-                                                <option value="2">2</option>
-                                                <option value="3">3</option>
-                                            </select>
-                                        </div>
-                                        <div class="col-md-12">
-                                            <select>
-                                                <option value="0">Choose Car Type </option>
-                                                <option value="1">1</option>
-                                                <option value="2">2</option>
-                                                <option value="3">3</option>
-                                            </select>
-                                        </div>
-                                        <div class="col-md-12">
-                                            <input class="contactus" placeholder="Search" type="Search" name="Search">
-                                        </div>
-                                        <div class="col-md-12">
-                                            <select>
-                                                <option value="0">Price of Rent</option>
-                                                <option value="1">1</option>
-                                                <option value="2">2</option>
-                                                <option value="3">3</option>
-                                            </select>
-                                        </div>
-                                        <div class="col-sm-12">
-                                            <button class="find_btn">Find Now</button>
-                                        </div>
-                                    </div>
-                                </form>
+                                    <ul class="list-unstyled list-style-group">
+                                        <li class="border-bottom p-2 d-flex justify-content-between">
+                                            <span>Bahan bakar</span>
+                                            <span style="font-weight: 600">{{ $m->nama_bahan_bakar }}</span>
+                                        </li>
+                                        <li class="border-bottom p-2 d-flex justify-content-between">
+                                            <span>Jumlah Kursi</span>
+                                            <span style="font-weight: 600">{{ $m->kapasitas }}</span>
+                                        </li>
+                                        <li class="border-bottom p-2 d-flex justify-content-between">
+                                            <span>Type Mobil</span>
+                                            <span style="font-weight: 600">{{ $m->nama_type_mobil }}</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <!-- Product actions-->
+                            <div class="card-footer border-top-0 bg-transparent">
+                                <div class="text-center">
+                                    <a class="btn btn-primary mt-auto" href="#">Sewa</a>
+                                    <a class="btn btn-info mt-auto text-white"
+                                        href="{{ route('cek-mobil', $m->id) }}">Detail</a>
+                                </div>
                             </div>
                         </div>
                     </div>
+                @endforeach
+            </div>
+        </div>
+
+        {{-- custom pagination --}}
+        <div class="row justify-content-center">
+            <div class="col-md-12">
+                <div class="d-flex justify-content-center">
+                    {!! $mobil->withQueryString()->links('vendor.pagination.bootstrap-5') !!}
                 </div>
             </div>
         </div>
-        <!-- end bestCar -->
-    </div>
+    </section>
+
+    <script>
+        let btnSearch = document.getElementById('btn-search');
+        let search = document.getElementById('search');
+        search.style.display = 'none';
+        btnSearch.addEventListener('click', function() {
+            if (search.style.display == 'none') {
+                search.style.display = 'block';
+                btnSearch.style.backgroundColor = '#dc3545';
+                btnSearch.innerHTML = '<i class="bi bi-x"></i> Batal';
+
+            } else {
+                search.style.display = 'none';
+                btnSearch.innerHTML = '<i class="bi bi-search"></i> Cari';
+                btnSearch.style.backgroundColor = '#0d6efd';
+            }
+        });
+    </script>
 @endsection

@@ -18,5 +18,9 @@ class RoleSeeder extends Seeder
         \App\Models\Role::factory()->create([
             'nama_role' => 'user',
         ]);
+
+        \App\Models\Role::factory()->create([
+            'nama_role' => 'mitra',
+        ]);
     }
 }

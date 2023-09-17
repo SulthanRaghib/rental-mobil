@@ -38,7 +38,9 @@
                     <form action="{{ route('mobil.update', $mobil->id) }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
-                        <input type="hidden" name="id" value="{{ $mobil->id }}">
+                        {{-- get user id --}}
+                        <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
+
                         <div class="mb-3">
                             <label for="kode_mobil" class="form-label">Kode Mobil</label>
                             <input type="text" class="form-control" id="kode_mobil" name="kode_mobil"
@@ -130,7 +132,7 @@
 
                         <div class="mb-3">
                             <div class="row mt-2">
-                                <div class="col-sm-6">
+                                <div class="col-sm-4">
                                     <label for="kapasitas" class="form-label">Kapasitas</label>
                                     <input type="number" class="form-control" id="kapasitas" name="kapasitas"
                                         value="{{ $mobil->kapasitas }}">
@@ -138,14 +140,23 @@
                                         <span class="text-danger">{{ $message }}</span>
                                     @enderror
                                 </div>
-                                <div class="col-sm-6">
+                                <div class="col-sm-4">
                                     <label for="harga_sewa" class="form-label">Harga Sewa</label>
                                     <div class="input-group">
                                         <input type="text" class="form-control" id="harga_sewa" name="harga_sewa"
                                             value="Rp. {{ number_format($mobil->harga_sewa, 0, ',', '.') }}">
-                                        <span class="input-group-text" id="basic-addon1">/ Jam</span>
+                                        <span class="input-group-text" id="basic-addon1">/ Hari</span>
                                     </div>
                                     @error('harga_sewa')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                                <div class="col-sm-4">
+                                    <label for="nama_perusahaan" class="form-label">Nama Perusahaan</label>
+                                    <input type="text" class="form-control" id="nama_perusahaan"
+                                        name="nama_perusahaan" value="{{ $mobil->user->nama_perusahaan }}" readonly>
+                                    <small class="text-danger">*Readonly</small>
+                                    @error('nama_perusahaan')
                                         <span class="text-danger">{{ $message }}</span>
                                     @enderror
                                 </div>
@@ -157,7 +168,8 @@
                                 <div class="col-sm-8">
                                     <label for="gambar_mobil" class="form-label">Gambar Mobil</label>
                                     <div class="input-group">
-                                        <input type="file" class="form-control" id="gambar_mobil" name="gambar_mobil" value="{{ $mobil->gambar_mobil }}">
+                                        <input type="file" class="form-control" id="gambar_mobil" name="gambar_mobil"
+                                            value="{{ $mobil->gambar_mobil }}">
                                         <button class="btn btn-outline-secondary" type="button" id="hapus_gambar">
                                             Hapus</button>
                                     </div>

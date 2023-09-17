@@ -22,6 +22,7 @@ class MobilSeeder extends Seeder
             'merek_id' => '1',
             'bahan_bakar_id' => '1',
             'type_mobil_id' => '1',
+            'user_id' => '1',
         ]);
     }
 }

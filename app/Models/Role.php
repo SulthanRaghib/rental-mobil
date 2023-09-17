@@ -14,4 +14,10 @@ class Role extends Model
     protected $fillable = [
         'nama_role',
     ];
+
+    // Relasi One to Many ke tabel Mitra
+    public function mitra()
+    {
+        return $this->hasMany(Mitra::class);
+    }
 }

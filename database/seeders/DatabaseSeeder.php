@@ -27,6 +27,7 @@ class DatabaseSeeder extends Seeder
             SewaSeeder::class,
             BahanBakarSeeder::class,
             MerekSeeder::class,
+            MitraSeeder::class,
         ]);
     }
 }

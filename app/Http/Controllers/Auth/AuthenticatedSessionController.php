@@ -29,6 +29,19 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
+        // buat berdasarkan role_id
+        $role = Auth::user()->role_id;
+
+        // jika role_id = 2 maka akan diarahkan ke halaman homepage
+        if ($role == 2) {
+            return redirect()->intended(RouteServiceProvider::HOME);
+        } else if ($role == 1) {
+            return redirect()->intended(RouteServiceProvider::DASHBOARD);
+        } else if ($role == 3) {
+            return redirect()->intended(RouteServiceProvider::DASHBOARD);
+        }
+
+        // jika role_id tidak sesuai maka akan diarahkan ke halaman login
         return redirect()->intended(RouteServiceProvider::HOME);
     }
 

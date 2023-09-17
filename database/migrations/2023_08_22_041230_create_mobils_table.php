@@ -22,6 +22,7 @@ return new class extends Migration
             $table->foreignId('merek_id');
             $table->foreignId('bahan_bakar_id');
             $table->foreignId('type_mobil_id');
+            $table->foreignId('user_id');
             $table->timestamps();
         });
     }
