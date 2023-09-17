@@ -30,7 +30,7 @@ Route::get('/search', [HomeController::class, 'search'])->name('search');
 Route::get('/detail-mobil/{id}', [HomeController::class, 'cekMobil'])->name('cek-mobil');
 
 
-Route::middleware('auth')->group(function () {
+Route::middleware(['auth', 'multirole:1,3'])->group(function () {
 
     Route::get('/sewa', [SewaController::class, 'sewa'])->name('sewa.index');
     Route::get('/sewa/create', [SewaController::class, 'create'])->name('sewa.create');
