@@ -21,13 +21,10 @@
                                         <td>{{ $mitra->nama }}</td>
                                     </tr>
                                     <tr>
-                                        <th>Email</th>
-                                        <td>{{ $mitra->email }}</td>
-                                    </tr>
-                                    <tr>
                                         <th>Nama Perusahaan</th>
                                         <td>{{ $mitra->nama_perusahaan }}</td>
                                     </tr>
+
                                     <tr>
                                         <th>Alamat</th>
                                         <td>{{ $mitra->alamat }}</td>
@@ -36,7 +33,11 @@
                                         <th>No. Handphone</th>
                                         <td>{{ $mitra->no_telp }}</td>
                                     </tr>
-                                    @if ($mitra->id == Auth::user()->id)
+                                    @if ($mitra->id == Auth::user()->id || Auth::user()->role_id == 1)
+                                        <tr>
+                                            <th>Email</th>
+                                            <td>{{ $mitra->email }}</td>
+                                        </tr>
                                         <tr>
                                             <th>Action</th>
                                             <td>
@@ -47,9 +48,8 @@
                                                 </button>
 
                                                 <!-- Modal -->
-                                                <div class="modal fade" id="updatePassword" data-bs-backdrop="static"
-                                                    data-bs-keyboard="false" tabindex="-1"
-                                                    aria-labelledby="updatePasswordLabel" aria-hidden="true">
+                                                <div class="modal fade" id="updatePassword" tabindex="-1"
+                                                    aria-labelledby="updatePassword1" aria-hidden="true">
                                                     <div class="modal-dialog">
                                                         <div class="modal-content">
                                                             <div class="modal-header">
@@ -64,24 +64,55 @@
                                                                     action="{{ route('mitra.updatePassword', $mitra->id) }}"
                                                                     action="POST">
                                                                     @csrf
-                                                                    <label for="password">Password Baru</label>
-                                                                    <input type="password" name="password" id="password"
-                                                                        class="form-control my-2"
-                                                                        placeholder="Masukkan Password Baru">
-                                                                    @error('password')
-                                                                        <span class="text-danger">{{ $message }}</span>
-                                                                    @enderror
+                                                                    <div class="mb-3">
+                                                                        <label for="password_lama">Password Lama</label>
+                                                                        <input type="password" name="password_lama"
+                                                                            id="password_lama" class="form-control mt-2"
+                                                                            placeholder="Masukkan Password Lama">
+                                                                        {{-- dapatkan pesan password-error --}}
+                                                                        @if (session('password-error'))
+                                                                            <small
+                                                                                class="text-danger">{{ session('password-error') }}</small>
+                                                                        @endif
+                                                                        @error('password_lama')
+                                                                            <small
+                                                                                class="text-danger">{{ $message }}</small>
+                                                                        @enderror
+                                                                    </div>
+                                                                    <div class="my-3">
+                                                                        <label for="password">Password Baru</label>
+                                                                        <input type="password" name="password"
+                                                                            id="password" class="form-control mt-2"
+                                                                            placeholder="Masukkan Password Baru">
+                                                                        @error('password')
+                                                                            <small
+                                                                                class="text-danger">{{ $message }}</small>
+                                                                        @enderror
+                                                                    </div>
+
+                                                                    <div class="my-3">
+                                                                        <label for="password_confirmation">Konfirmasi
+                                                                            Password</label>
+                                                                        <input type="password" name="password_confirmation"
+                                                                            id="password_confirmation"
+                                                                            class="form-control mt-2"
+                                                                            placeholder="Masukkan Konfirmasi Password">
+                                                                        @error('password_confirmation')
+                                                                            <small
+                                                                                class="text-danger">{{ $message }}</small>
+                                                                        @enderror
+                                                                    </div>
 
                                                                     <button type="submit"
-                                                                        class="btn btn-sm btn-warning">Simpan</button>
+                                                                        class="btn btn-large btn-warning float-end">Simpan</button>
                                                                 </form>
                                                             </div>
-                                                            <div class="modal-footer">
+                                                            {{-- <div class="modal-footer">
                                                                 <button type="button" class="btn btn-secondary"
                                                                     data-bs-dismiss="modal">Close</button>
                                                                 <a href="{{ route('mitra.index') }}"
                                                                     class="btn btn-primary">Kembali</a>
-                                                            </div>
+                                                            </div> --}}
                                                         </div>
                                                     </div>
                                                 </div>
@@ -92,4 +123,9 @@
                                 </tbody>
                             </table>
                         </div>
-                    @endsection
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+@endsection

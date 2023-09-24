@@ -48,6 +48,12 @@ class Mobil extends Model
         return $this->belongsTo(User::class);
     }
 
+    // Relasi One to Many ke tabel Sewa
+    public function sewa()
+    {
+        return $this->hasMany(Sewa::class);
+    }
+
     public static function selectMobilAll()
     {
         return Mobil::join('mereks', 'mobils.merek_id', '=', 'mereks.id')

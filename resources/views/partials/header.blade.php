@@ -8,6 +8,7 @@
     <title>{{ $title }}</title>
     <meta content="" name="description">
     <meta content="" name="keywords">
+    <meta name="csrf-token" content="{{ csrf_token() }}" />
 
     <!-- Favicons -->
     <link href={{ url('assets/img/favicon.ico') }} rel="icon">
@@ -34,6 +35,7 @@
     {{-- sweetalert2 --}}
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
     <!-- =======================================================
   * Template Name: NiceAdmin
   * Updated: Jul 27 2023 with Bootstrap v5.3.1
@@ -52,7 +54,11 @@
             <a href="{{ route('dashboard') }}" class="logo d-flex align-items-center">
                 <img src={{ url('assets/img/logo.png') }} alt="">
                 <span class="d-none d-lg-block">RentalMobil </span>
-                <h6 style="color: black;">Admin</h6>
+                @if (Auth::user()->role_id == 1)
+                    <h6 style="color: black;">Admin</h6>
+                @elseif (Auth::user()->role_id == 3)
+                    <h6 style="color: black;">Mitra</h6>
+                @endif
             </a>
             <i class="bi bi-list toggle-sidebar-btn"></i>
         </div><!-- End Logo -->
@@ -67,7 +73,7 @@
         <nav class="header-nav ms-auto">
             <ul class="d-flex align-items-center">
 
-                <li class="nav-item d-block d-lg-none">
+                {{-- <li class="nav-item d-block d-lg-none">
                     <a class="nav-link nav-icon search-bar-toggle " href="#">
                         <i class="bi bi-search"></i>
                     </a>
@@ -212,20 +218,25 @@
 
                     </ul><!-- End Messages Dropdown Items -->
 
-                </li><!-- End Messages Nav -->
+                </li><!-- End Messages Nav --> --}}
 
                 <li class="nav-item dropdown pe-3">
 
                     <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#"
                         data-bs-toggle="dropdown">
                         <img src={{ url('assets/img/defaultuser.png') }} alt="Profile" class="rounded-circle">
-                        <span class="d-none d-md-block dropdown-toggle ps-2">{{ Auth::user()->nama }}</span>
+                        <span
+                            class="d-none d-md-block dropdown-toggle ps-2">{{ explode(' ', Auth::user()->nama)[0] }}</span>
                     </a><!-- End Profile Iamge Icon -->
 
                     <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
                         <li class="dropdown-header">
                             <h6>{{ Auth::user()->nama }}</h6>
-                            <span>Admin</span>
+                            @if (Auth::user()->role_id == 1)
+                                <span>Admin</span>
+                            @elseif (Auth::user()->role_id == 3)
+                                <span>Mitra</span>
+                            @endif
                         </li>
                         <li>
                             <hr class="dropdown-divider">

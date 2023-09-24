@@ -4,7 +4,7 @@
         <div class="card">
             <div class="card-body">
                 <div class="d-flex justify-content-between">
-                    <h5 class="card-title">Tambah Mitra</h5>
+                    <h5 class="card-title">Edit Mitra</h5>
 
                     <button type="button" class="btn btn-sm btn-warning my-3" data-bs-toggle="modal"
                         data-bs-target="#staticBackdrop">
@@ -84,17 +84,73 @@
                                     <span class="text-danger">{{ $message }}</span>
                                 @enderror
                             </div>
+                        </div>
+                        <div class="mb-4">
+                            <label for="alamat_rental">Alamat Rental</label>
+                            <div class="row mt-2">
+                                <div class="col-sm-4 mb-3">
+                                    <label for="provinsi">Provinsi</label>
+                                    <select name="" id="provinsi" class="form-select mb-0">
+                                        <option value="" class="" disabled selected>Pilih Provinsi
+                                        </option>
+                                        @php
+                                            // explode alamat : koma dan spasi
+                                            $alamat = explode(', ', $mitra->alamat);
+                                            $nama_provinsi = explode(' ', $alamat[0]);
+                                        @endphp
+                                        @foreach ($provinsi as $p)
+                                            @if ($p['name'] == $nama_provinsi[1])
+                                                <option value="{{ $p['id'] }}" selected>{{ $p['name'] }}
+                                                </option>
+                                            @else
+                                                <option value="{{ $p['id'] }}">{{ $p['name'] }}</option>
+                                            @endif
+                                        @endforeach
+                                        <input type="text" id="selected_provinsi" name="provinsi"
+                                            value="{{ $nama_provinsi[1] }}">
+                                    </select>
+                                    @error('provinsi')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                </div>
 
-                            <div class="mb-3">
-                                <label for="alamat">Alamat</label>
-                                <textarea name="alamat" id="alamat" cols="30" rows="2" class="form-control mb-3">{{ $mitra->alamat }}</textarea>
-                                @error('alamat')
-                                    <span class="text-danger">{{ $message }}</span>
-                                @enderror
+                                <div class="col-sm-4 mb-3">
+                                    <label for="kota">Kabupaten/Kota</label>
+                                    <select name="" id="kota" class="form-select mb-0">
+                                        <option value="" disabled selected>Pilih Provinsi Dahulu</option>
+                                        <input type="text" id="selected_kota" name="kota">
+                                    </select>
+                                    @error('kota')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                </div>
+
+                                <div class="col-sm-4 mb-3">
+                                    <label for="kecamatan">Kecamatan</label>
+                                    <select name="kecamatan" id="kecamatan" class="form-select mb-0">
+                                        <option value="" disabled selected>Pilih Kota Dahulu</option>
+                                        <input type="text" id="selected_kecamatan" name="kecamatan">
+                                    </select>
+                                    @error('kecamatan')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                </div>
+
+                                <div class="col-sm-4 mb-3">
+                                    <label for="kelurahan">Kelurahan</label>
+                                    <select name="kelurahan" id="kelurahan" class="form-select mb-0">
+                                        <option value="" disabled selected>Pilih Kecamatan Dahulu</option>
+                                        <input type="text" id="selected_kelurahan" name="kelurahan">
+                                    </select>
+                                    @error('kelurahan')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                </div>
+
                             </div>
                         </div>
 
-                        <button type="submit" class="btn btn-primary">Tambah Mitra</button>
+                        <button type="submit" class="btn btn-primary">Edit Mitra</button>
 
                     </form>
                 </div>
@@ -103,15 +159,54 @@
     </div>
 
     <script>
-        // buat input dengan eye
-        const togglePassword = document.querySelector('#button-view');
-        const password = document.querySelector('#password');
-        togglePassword.addEventListener('click', function(e) {
-            // toggle the type attribute
-            const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
-            password.setAttribute('type', type);
-            // toggle the eye slash icon
-            this.innerHTML = `<i class="bi bi-eye${type === 'password' ? '-slash' : ''}"></i>`;
+        // get value from select option not id
+        $('#provinsi').change(function() {
+            if ($(this).val() != '') {
+                $('#selected_provinsi').val($('#provinsi option:selected').text());
+            } else {
+                $('#selected_provinsi').val('');
+            }
+        });
+        $('#kota').change(function() {
+            if ($(this).val() != '') {
+                $('#selected_kota').val($('#kota option:selected').text());
+            } else {
+                $('#selected_kota').val('');
+            }
+        });
+        $('#kecamatan').change(function() {
+            $('#selected_kecamatan').val($('#kecamatan option:selected').text());
+        });
+        $('#kelurahan').change(function() {
+            $('#selected_kelurahan').val($('#kelurahan option:selected').text());
+        });
+
+        // foreach data provinsi from api
+        // buatkan logic dapatkan oninput dari select option provinsi dan kirimkan ke api untuk mendapatkan data kota
+        // buatkan logic dapatkan oninput dari select option kota dan kirimkan ke api untuk mendapatkan data kecamatan
+        // buatkan logic dapatkan oninput dari select option kecamatan dan kirimkan ke api untuk mendapatkan data kelurahan.
+
+        function selectedProvinsi(id) {
+            console.log(id);
+        }
+        // get data kota
+        $('#provinsi').on('input', function() {
+            let id_provinsi = $(this).val();
+            let url =
+                `https://api.goapi.id/v1/regional/kota?provinsi_id=${id_provinsi}&api_key=TQpJdXsrIsj9CmBCzKOJLvslWZdKx0`;
+            $.ajax({
+                url: url,
+                type: 'GET',
+                dataType: 'json',
+                success: function(result) {
+                    console.log(result);
+                    $('#kota').empty();
+                    $('#kota').append(`<option value="" disabled selected>Pilih Kota</option>`);
+                    $.each(result.data, function(i, kota) {
+                        $('#kota').append(`<option value="${kota.id}">${kota.name}</option>`);
+                    });
+                }
+            });
         });
     </script>
 @endsection

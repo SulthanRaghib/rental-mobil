@@ -12,14 +12,15 @@ class SewaSeeder extends Seeder
      */
     public function run(): void
     {
-        \App\Models\Sewa::factory()->create([
-            'tanggal_sewa' => '2021-01-01',
-            'tanggal_kembali' => '2021-01-02',
-            'total_bayar' => '100000',
-            'status' => 'Belum Bayar',
-            'no_ktp' => '1234567890123456',
-            'user_id' => '1',
-            'mobil_id' => '1',
-        ]);
+        // \App\Models\Sewa::factory()->create([
+        //     'tanggal_sewa' => '2021-01-01',
+
+        //     'tanggal_kembali' => '2021-01-02',
+        //     'total_bayar' => '100000',
+        //     'status' => 'Belum Bayar',
+        //     'no_ktp' => '1234567890123456',
+        //     'user_id' => '1',
+        //     'mobil_id' => '1',
+        // ]);
     }
 }

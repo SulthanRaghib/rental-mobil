@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('kode_mobil', 10)->unique();
             $table->string('plat_nomor', 15)->unique();
-            $table->string('harga_sewa');
+            $table->bigInteger('harga_sewa');
             $table->string('kapasitas');
             $table->string('gambar_mobil');
             $table->string('status');

@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Mobil;
 use App\Models\TypeMobil;
-use Illuminate\Http\Request;
 
 
 class HomeController extends Controller
@@ -20,7 +19,7 @@ class HomeController extends Controller
 
     public function cekMobil($id)
     {
-        return view('contents.pages.frontend.detailMobil', [
+        return view('contents.pages.sewa.detailMobil', [
             'title' => 'Detail Mobil',
             'mobil' => Mobil::getDetailMobil($id),
         ]);

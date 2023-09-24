@@ -28,14 +28,14 @@ Route::get('/', [HomeController::class, 'index'])->name('homepage');
 Route::get('/find-cars', [HomeController::class, 'findCars'])->name('find-cars');
 Route::get('/search', [HomeController::class, 'search'])->name('search');
 Route::get('/detail-mobil/{id}', [HomeController::class, 'cekMobil'])->name('cek-mobil');
+Route::get('/cek/cek-sewa', [SewaController::class, 'cekSewa'])->name('sewa.pembayaran');
 
+Route::get('/sewa', [SewaController::class, 'sewa'])->name('sewa.index');
+Route::get('/sewa/create', [SewaController::class, 'create'])->name('sewa.create');
+Route::post('/sewa', [SewaController::class, 'store'])->name('sewa.store');
+Route::get('/sewa/edit/{id}', [SewaController::class, 'edit'])->name('sewa.edit');
 
-Route::middleware(['auth', 'multirole:1,3'])->group(function () {
-
-    Route::get('/sewa', [SewaController::class, 'sewa'])->name('sewa.index');
-    Route::get('/sewa/create', [SewaController::class, 'create'])->name('sewa.create');
-    Route::post('/sewa', [SewaController::class, 'store'])->name('sewa.store');
-    Route::get('/sewa/edit/{id}', [SewaController::class, 'edit'])->name('sewa.edit');
+Route::middleware(['auth', 'multirole:1,3',])->group(function () {
 
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::get('/pages-blank', [DashboardController::class, 'blank'])->name('pages-blank');
@@ -59,7 +59,7 @@ Route::middleware(['auth', 'multirole:1,3'])->group(function () {
     Route::post('/mobil', [MobilController::class, 'store'])->name('mobil.store');
     Route::get('/mobil/edit/{id}', [MobilController::class, 'edit'])->name('mobil.edit');
     Route::put('/mobil/{id}', [MobilController::class, 'update'])->name('mobil.update');
-    Route::delete('/mobil/{id}', [MobilController::class, 'destroy'])->name('mobil.destroy');
+    Route::delete('/mobil/{kode_mobil}', [MobilController::class, 'destroy'])->name('mobil.destroy');
 
     Route::get('/mitra', [MitraController::class, 'index'])->name('mitra.index');
     Route::get('/mitra/create', [MitraController::class, 'create'])->name('mitra.create');

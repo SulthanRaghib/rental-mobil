@@ -24,7 +24,7 @@ class DatabaseSeeder extends Seeder
             MobilSeeder::class,
             RoleSeeder::class,
             UserSeeder::class,
-            SewaSeeder::class,
+            // SewaSeeder::class,
             BahanBakarSeeder::class,
             MerekSeeder::class,
             MitraSeeder::class,

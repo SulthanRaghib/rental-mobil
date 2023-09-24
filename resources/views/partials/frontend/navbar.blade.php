@@ -14,14 +14,14 @@
                     <a class="nav-link active" href="{{ route('homepage') }}">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="./contact.html">Contact</a>
+                    <a class="nav-link" href="{{ route('sewa.pembayaran') }}">Cek Sewa</a>
                 </li>
                 @if (Auth::check())
                     {{-- create dropdown --}}
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownPortfolio"
                             data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            {{ Auth::user()->nama }}
+                            {{ explode(' ', Auth::user()->nama)[0] }}
                         </a>
                         <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownPortfolio">
                             <a class="dropdown-item nav-link" href="{{ route('logout') }}"

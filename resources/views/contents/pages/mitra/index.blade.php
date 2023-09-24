@@ -19,6 +19,9 @@
                         <thead>
                             <tr>
                                 <th>No</th>
+                                @if (Auth::user()->role_id == 1)
+                                    <th>Kode Mitra</th>
+                                @endif
                                 <th>Nama Mitra</th>
                                 <th>Nama Perusahaan</th>
                                 <th>Alamat</th>
@@ -38,6 +41,9 @@
                             @foreach ($mitra as $m)
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
+                                    @if (Auth::user()->role_id == 1)
+                                        <td>{{ $m->kode_user }}</td>
+                                    @endif
                                     <td>{{ $m->nama }}</td>
                                     <td>{{ $m->nama_perusahaan }}</td>
                                     <td>{{ $m->alamat }}</td>
@@ -85,8 +91,8 @@
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit" class="btn btn-sm btn-danger btn_hapus"
-                                                    onclick="btn_hapus('{{ $m->nama_pemilik }}')">Hapus <i
-                                                        class="bi bi-trash"></i>
+                                                    onclick="return confirm('Anda Yakin ingin Menghapus mitra dengan Nama Pemilik = {{ $m->nama }}?')">
+                                                    Hapus <i class="bi bi-trash"></i>
                                                 </button>
                                             </form>
                                         </td>
@@ -113,12 +119,23 @@
         </script>
     @endif
 
-    <script>
-        function btn_hapus(nama_pemilik) {
-            console.log(nama_pemilik);
+    @if (session('password-success'))
+        <script>
+            Swal.fire({
+                icon: 'success',
+                title: 'Berhasil',
+                text: '{{ session('password-success') }}',
+                confirmButtonText: 'Oke'
+            })
+        </script>
+    @endif
+
+    {{-- <script>
+        function btn_hapus(id) {
+            console.log(id);
             event.preventDefault();
             Swal.fire({
-                title: 'Anda Yakin ingin Menghapus mitra dengan Nama Pemilik=' + nama_pemilik + '?',
+                title: 'Anda Yakin ingin Menghapus mitra dengan Nama Pemilik=' + id + '?',
                 text: "Data yang dihapus tidak akan bisa dikembalikan.",
                 icon: 'warning',
                 showCancelButton: true,
@@ -141,5 +158,5 @@
                 }
             })
         }
-    </script>
+    </script> --}}
 @endsection

@@ -75,7 +75,7 @@ class MobilController extends Controller
         $gambar_nama = 'mobil-' . time() . '.' . $request->gambar_mobil->extension();
         $path = public_path('assets/img/mobil');
         $request->gambar_mobil->move($path, $gambar_nama);
-        $harga_sewa_number = str_replace(['Rp. ', '.'], '', $request->harga_sewa);
+        $harga_sewa_number = preg_replace('/[^0-9]/', '', $request->harga_sewa);
 
         Mobil::create([
             'kode_mobil' => $request->kode_mobil,

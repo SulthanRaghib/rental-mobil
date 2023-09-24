@@ -651,5 +651,17 @@
         </div><!-- End News & Updates -->
 
     </div><!-- End Right side columns -->
-    <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+    <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
+            class="bi bi-arrow-up-short"></i></a>
+
+    @if (session('welcome'))
+        <script>
+            Swal.fire({
+                icon: 'success',
+                title: 'Welcome',
+                text: '{{ session('welcome') }}',
+                confirmButtonText: 'Oke'
+            })
+        </script>
+    @endif
 @endsection

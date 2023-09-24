@@ -5,7 +5,9 @@
     <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet" />
     <!-- Core theme CSS (includes Bootstrap)-->
     <link href="{{ url('fe/css/styles.css') }}" rel="stylesheet" />
-    <link rel="stylesheet" href="css/custom.css" />
+    <link rel="stylesheet" href="{{ url('fe/css/custom.css') }}" />
+    {{-- sweet alert --}}
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 @endsection
 
 @section('content')
@@ -58,10 +60,17 @@
                     <div class="col mb-5">
                         <div class="card h-100">
                             <!-- Sale badge-->
-                            <div class="badge badge-custom bg-warning text-white position-absolute"
-                                style="top: 0; right: 0">
-                                {{ $m->status }}
-                            </div>
+                            @if ($m->status == 'Tersedia')
+                                <div class="badge badge-custom bg-success text-white position-absolute"
+                                    style="top: 0; right: 0">
+                                    {{ $m->status }}
+                                </div>
+                            @else
+                                <div class="badge badge-custom bg-danger text-white position-absolute"
+                                    style="top: 0; right: 0">
+                                    {{ $m->status }}
+                                </div>
+                            @endif
                             <!-- Product image-->
                             <img class="card-img-top" src="{{ asset('assets/img/mobil/' . $m->gambar_mobil) }}"
                                 alt="gambar mobil" />
@@ -92,13 +101,24 @@
                                 </div>
                             </div>
                             <!-- Product actions-->
-                            <div class="card-footer border-top-0 bg-transparent">
-                                <div class="text-center">
-                                    <a class="btn btn-primary mt-auto" href="#">Sewa</a>
-                                    <a class="btn btn-info mt-auto text-white"
-                                        href="{{ route('cek-mobil', $m->id) }}">Detail</a>
+                            @if ($m->status == 'Tersedia')
+                                <div class="card-footer border-top-0 bg-transparent">
+                                    <div class="text-center">
+                                        <a class="btn btn-primary mt-auto" href="#">Sewa</a>
+                                        <a class="btn btn-info mt-auto text-white"
+                                            href="{{ route('cek-mobil', $m->id) }}">Detail</a>
+                                    </div>
                                 </div>
-                            </div>
+                            @else
+                                {{-- tidak bisa sewa --}}
+                                <div class="card-footer border-top-0 bg-transparent">
+                                    <div class="text-center">
+                                        <a class="btn btn-danger mt-auto" href="#">Tidak Tersedia</a>
+                                        <a class="btn btn-info mt-auto text-white"
+                                            href="{{ route('cek-mobil', $m->id) }}">Detail</a>
+                                    </div>
+                                </div>
+                            @endif
                         </div>
                     </div>
                 @endforeach
@@ -132,4 +152,27 @@
             }
         });
     </script>
+
+    @if (session('welcome'))
+        <script>
+            Swal.fire({
+                icon: 'success',
+                title: 'Welcome',
+                text: '{{ session('welcome') }}',
+                confirmButtonText: 'Oke'
+            })
+        </script>
+    @endif
+
+    @if (session()->has('success'))
+        <script>
+            Swal.fire({
+                icon: 'success',
+                title: 'Berhasil',
+                text: '{{ session('success') }}',
+                showConfirmButton: false,
+                timer: 1500
+            })
+        </script>
+    @endif
 @endsection

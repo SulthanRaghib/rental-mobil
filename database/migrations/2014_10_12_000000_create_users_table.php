@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('password');
             $table->string('no_telp')->nullable();
             $table->string('alamat')->nullable();
+            $table->string('kode_user')->unique()->nullable();
             $table->string('nama_perusahaan')->nullable();
             $table->foreignId('role_id')->default('2');
             $table->rememberToken();

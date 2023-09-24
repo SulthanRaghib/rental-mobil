@@ -20,8 +20,11 @@ class User extends Authenticatable
     protected $fillable = [
         'nama',
         'email',
+        'email_verified_at',
         'password',
-        'no_hp',
+        'kode_user',
+        'nama_perusahaan',
+        'no_telp',
         'alamat',
         'role_id',
     ];
@@ -56,5 +59,11 @@ class User extends Authenticatable
     public function mobil()
     {
         return $this->hasMany(Mobil::class);
+    }
+
+    // Relasi One to Many ke tabel Sewa
+    public function sewa()
+    {
+        return $this->hasMany(Sewa::class);
     }
 }

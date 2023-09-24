@@ -34,11 +34,11 @@ class AuthenticatedSessionController extends Controller
 
         // jika role_id = 2 maka akan diarahkan ke halaman homepage
         if ($role == 2) {
-            return redirect()->intended(RouteServiceProvider::HOME);
+            return redirect()->intended(RouteServiceProvider::HOME)->with('welcome', 'Selamat datang, ' . Auth::user()->nama . ' di aplikasi rental mobil.');
         } else if ($role == 1) {
-            return redirect()->intended(RouteServiceProvider::DASHBOARD);
+            return redirect()->intended(RouteServiceProvider::DASHBOARD)->with('welcome', 'Selamat datang, ' . Auth::user()->nama . ' dan Selamat Bekerja Min.');
         } else if ($role == 3) {
-            return redirect()->intended(RouteServiceProvider::DASHBOARD);
+            return redirect()->intended(RouteServiceProvider::DASHBOARD)->with('welcome', 'Selamat datang, ' . Auth::user()->nama . ' dan Semangat Bekerja.');
         }
 
         // jika role_id tidak sesuai maka akan diarahkan ke halaman login
