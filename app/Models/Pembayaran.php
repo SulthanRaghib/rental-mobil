@@ -12,7 +12,9 @@ class Pembayaran extends Model
     protected $table = 'pembayaran';
     protected $primaryKey = 'id';
     protected $fillable = [
-        'sewa_id',
+        'order_id',
+        'total',
+        'nama_pembayar',
         'status',
         'link_pembayaran',
         'sewa_id'

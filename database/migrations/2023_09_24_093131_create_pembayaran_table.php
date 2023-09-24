@@ -13,6 +13,9 @@ return new class extends Migration
     {
         Schema::create('pembayaran', function (Blueprint $table) {
             $table->id();
+            $table->string('order_id');
+            $table->bigInteger('total');
+            $table->string('nama_pembayar');
             $table->string('status');
             $table->string('link_pembayaran');
             $table->foreignId('sewa_id');
